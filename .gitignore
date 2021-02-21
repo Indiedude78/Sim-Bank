@@ -1,8 +1,6 @@
 myprivatecreds.*
 test.*
-*test
 test*
-*test*
 *.log
 *.txt
 index.*
