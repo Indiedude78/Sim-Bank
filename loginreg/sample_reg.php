@@ -2,8 +2,8 @@
 <form method="POST">
   <label for="email">Email:</label>
   <input type="email" id="email" name="email" required/><br>
-  <label for="username">Username:</label>
-  <input type="username" id="username" name="username" required/><br>
+ <!-- <label for="username">Username:</label>
+  <input type="username" id="username" name="username" required/><br>-->
   <label for="p1">Password:</label>
   <input type="password" id="p1" name="password" required/><br>
   <label for="p2">Confirm Password:</label>
@@ -14,15 +14,15 @@
 <?php
 if(isset($_POST["register"])){
   $email = null;
-  $userName = null;
+  //$userName = null;
   $password = null;
   $confirm = null;
   if(isset($_POST["email"])){
     $email = $_POST["email"];
   }
-  if(isset($_POST["username"])) {
-      $userName = $_POST["username"];
-  }
+ // if(isset($_POST["username"])) {
+   //   $userName = $_POST["username"];
+  //}
   if(isset($_POST["password"])){
     $password = $_POST["password"];
   }
@@ -43,12 +43,23 @@ if(isset($_POST["register"])){
   }
   //TODO other validation as desired, remember this is the last line of defense
   if($isValid){
-    //for password security we'll generate a hash that'll be saved to the DB instead of the raw password
-    //for this sample we'll show it instead
+    //Generate a hash value to store the password
     $hash = password_hash($password, PASSWORD_BCRYPT);
-    //echo "<br>Our hash: $hash<br>";
-    echo "User registered (not really since we don't have a database setup yet)<br>";
-    echo "Username: $userName<br>Email: $email"; 
+    require_once("db.php");
+    $db = getDB();
+    if(isset($db)) {
+      $stmt = $db->prepare("INSERT INTO Users(email, password) VALUES(:email, :password)");
+      $params = array(":email"=>$email, ":password"=>$hash);
+      $r = $stmt->execute($params);
+      echo "db returned:" . var_export($r, true);
+      $e = $stmt->errorInfo();
+      if($e[0] == "00000") {
+        echo "<br>Welcome! You have registered, Please login<br>";
+      }
+      else {
+        echo "Something went wrong: " . var_export($e, true);
+      }
+    } 
   }
   else{
    echo "There was a validation issue"; 
