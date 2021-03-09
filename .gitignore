@@ -3,7 +3,7 @@ test.*
 test*
 *.log
 *.txt
-index.*
+index.html
 config.php
 config.*
 *Examples*
