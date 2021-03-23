@@ -9,4 +9,5 @@ session_destroy();
 echo "<br><h3>Logged out</h3>";
 die(header("Location: index.php"));
 //echo "<pre>" . var_export($_SESSION, true) . "</pre>";
+
 ?>
