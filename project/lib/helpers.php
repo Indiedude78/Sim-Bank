@@ -16,4 +16,22 @@ function has_role($role){
     }
     return false;
 }
+
+function get_username() {
+    if (is_logged_in() and isset($_SESSION["user"]["username"])) {
+        return $_SESSION["user"]["username"];
+    }
+}
+
+function get_email() {
+    if (is_logged_in() and isset($_SESSION["user"]["email"])) {
+        return $_SESSION["user"]["email"];
+    }
+}
+
+function get_id() {
+    if (is_logged_in() and isset($_SESSION["user"]["id"])) {
+        return $_SESSION["user"]["id"];
+    }
+}
 ?>
