@@ -24,7 +24,7 @@ if (isset($_POST["saved"])) {
             }
         }
         if ($inUse > 0) {
-            echo "Email not available";
+            echo "<br>Email not available";
             $isValid = false;
         }
         else {
@@ -55,7 +55,7 @@ if (isset($_POST["saved"])) {
             $newUsername = $username;
         }
     }
-    if (isValid) {
+   // if (isValid) {
         $stmt = $db->prepare("UPDATE Users set email = :email, username = :username where id = :id");
         $r = $stmt->execute([":email" => $newEmail, ":username" => $newUsername, ":id" => get_id()]);
         if ($r) {
@@ -72,10 +72,10 @@ if (isset($_POST["saved"])) {
                 $stmt = $db->prepare("UPDATE Users set password = :password where id = :id");
                 $r = $stmt->execute([":id" => get_id(), ":password" => $hash]);
                 if ($r) {
-                    echo "Password reset successfully";
+                    echo "<br>Password reset successfully";
                 }
                 else {
-                    echo "Error resetting password";
+                    echo "<br>Error resetting password";
                 }
             }
         }
@@ -89,7 +89,7 @@ if (isset($_POST["saved"])) {
             $_SESSION["user"]["email"] = $email;
             $_SESSION["user"]["username"] = $username;
         }
-    }
+   // }
     else {
 
     }
