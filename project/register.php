@@ -42,7 +42,7 @@ if (isset($_POST["register"])) {
             $params = array(":username" => $username, ":email" => $email, ":password" => $hash);
             $r = $stmt->execute($params);
             //let's just see what's returned
-            echo "db returned: " . var_export($r, true);
+            //echo "db returned: " . var_export($r, true);
             $e = $stmt->errorInfo();
             if ($e[0] == "00000") {
                 echo "<br>Welcome! You successfully registered, please login.";
@@ -52,7 +52,7 @@ if (isset($_POST["register"])) {
                     echo "<br>Either username or email is already registered, please try again";
                 }
                 else {
-                    echo "uh oh something went wrong: " . var_export($e, true);
+                    echo "<br>Something went wrong.";
                 }
                 
             }
@@ -63,7 +63,7 @@ if (isset($_POST["register"])) {
     }
 }
 ?>
-<form method="POST">
+<form class="user-reg" method="POST">
     <label for="username">Username:</label>
     <input type="text" id="username" name="username" maxlength="60" required/>
     <label for="email">Email:</label>

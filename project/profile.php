@@ -97,7 +97,7 @@ if (isset($_POST["saved"])) {
 
 ?>
 
-<form method="POST">
+<form class="user-reg" method="POST">
     <label for="email">Email:</label>
     <input type="email" id="email" name="email"/>
     <label for="username">Username:</label>

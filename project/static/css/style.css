@@ -1,7 +1,7 @@
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 1.5em;
-    background-image: linear-gradient(to bottom right, #152738, #0f325c );
+    font-size: 1em;
+    background-image: linear-gradient(to bottom right, #4c547057, #2d3d52 );
 }
 
 ul[class="nav"] {
@@ -10,17 +10,17 @@ ul[class="nav"] {
     margin-left: 77%;
     padding: 5px;
     overflow: auto;
-    background-color: #0b0c10;
+    background-color:  transparent;
 }
 
 .nav > li {
-    float: left;
+    float: right;
 }
 
 .nav > li a {
     display: list-item;
-    color: #66fcf1;
-    text-align: right;
+    color: #000000;
+    text-align: center;
     padding: 14px;
     text-decoration: none;
 }
@@ -29,9 +29,16 @@ ul[class="nav"] {
     background-color:  #45a29e;
 }
 
+form[class="user-reg"] {
+    position: relative;
+    margin-right: 25cm;
+    padding: 25;
+    font-size: 0.5em;
+}
+
 label {
-    font-size: larger;
-    color: rgb(255, 255, 255);
+    font-size: 1.5em;
+    color: rgb(0, 0, 0);
 }
 
 input, select {
@@ -39,38 +46,37 @@ input, select {
     padding: 12px 20px;
     margin: 8px 0;
     display: block;
-    border: 1px solid rgb(3, 119, 252);
+    border: 1px solid rgba(67, 154, 255, 0.781);
     border-radius: 4px;
     box-sizing: border-box;
-    background-color: #45a29e;
-    border: 2px solid #66fcf1;
+    background-color: #ffffff;
     box-sizing: border-box;
 }
 
 input[type=submit] {
-    width: 20%;
-    background-color:#0b0c10;
-    color: #66fcf1;
+    width: auto;
+    background-color: white transparent;
+    color: #000000;
     font-size: large;
     padding: 14px 20px;
     margin-top: 25px;
    /* margin: 8px;*/
     border: 5px;
-    border-color: #45a29e;
+    border-color: #3c8884;
     border-radius: 4px;
     cursor: pointer;
 }
 
 input[type=submit]:hover {
-    background-color:#45a29e;
+    background-color:#45a29d8a;
 }
 
 h3 {
-    font-size: 1.5em;
-    color: #66fcf1;
+    font-size: 1em;
+    color: inherit;
 }
 
 #text {
-    color:  white;
+    color:  black;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }

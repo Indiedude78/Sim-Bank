@@ -1,5 +1,6 @@
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
-<form method="POST">
+
+<form class="user-reg" method="POST">
     <label for="email">Email:</label>
     <input type="email" id="email" name="email"/>
     <label for="p1">Password:</label>
@@ -32,7 +33,7 @@ if (isset($_POST["login"])) {
 
             $params = array(":email" => $email);
             $r = $stmt->execute($params);
-            echo "db returned: " . var_export($r, true);
+            //echo "db returned: " . var_export($r, true);
             $e = $stmt->errorInfo();
             if ($e[0] != "00000") {
                 echo "uh oh something went wrong: " . var_export($e, true);
