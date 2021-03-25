@@ -1,7 +1,7 @@
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 1em;
-    background-image: linear-gradient(to bottom right, #4c547057, #2d3d52 );
+    background-image: linear-gradient(to bottom left, #ffffffe7, #a2caffd8 );
 }
 
 ul[class="nav"] {
@@ -23,6 +23,7 @@ ul[class="nav"] {
     text-align: center;
     padding: 14px;
     text-decoration: none;
+    font-size: 1.5em;
 }
 
 .nav > li a:hover {
@@ -30,8 +31,9 @@ ul[class="nav"] {
 }
 
 form[class="user-reg"] {
+    float: left;
     position: relative;
-    margin-right: 25cm;
+    margin-right: 100%;
     padding: 25;
     font-size: 0.5em;
 }
@@ -41,21 +43,27 @@ form > h4 {
     font-size: 1.5em;
 }
 
+form > h2 {
+    margin-top: 5mm;
+    text-align: center;
+    font-size: 2.5em;
+    overflow: auto;
+}
+
 label {
-    font-size: 1.5em;
+    font-size: 2.3em;
     color: rgb(0, 0, 0);
 }
 
 input, select {
-    width: 100%;
+    width: 10cm;
     padding: 12px 20px;
-    margin: 8px 0;
+    margin: 10px 0;
     display: block;
-    border: 1px solid rgba(67, 154, 255, 0.781);
+    border: 1px solid rgba(0, 0, 0, 0.781);
     border-radius: 16px;
     box-sizing: border-box;
     background-color: #ffffff;
-    box-sizing: border-box;
 }
 
 input[type=submit] {
@@ -77,11 +85,11 @@ input[type=submit]:hover {
 }
 
 h3 {
-    font-size: 1em;
+    font-size: 1.5em;
     color: inherit;
 }
 
 #text {
     color:  black;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: inherit;
 }

@@ -46,6 +46,7 @@ if (isset($_POST["register"])) {
             $e = $stmt->errorInfo();
             if ($e[0] == "00000") {
                 echo "<br>Welcome! You successfully registered, please login.";
+                header("refresh:4;url=login.php");
             }
             else {
                 if ($e[0] == "23000") {
@@ -63,14 +64,17 @@ if (isset($_POST["register"])) {
     }
 }
 ?>
-<form class="user-reg" method="POST">
+<form id="user-reg" class="user-reg" method="POST">
     <label for="username">Username:</label>
-    <input type="text" id="username" name="username" maxlength="60" required/>
+    <input type="text" id="username" name="username" minlength="6" maxlength="60" required/>
     <label for="email">Email:</label>
     <input type="email" id="email" name="email" required/>
     <label for="p1">Password:</label>
-    <input type="password" id="p1" name="password" required/>
+    <input type="password" id="p1" name="password" minlength="8"required/>
     <label for="p2">Confirm Password:</label>
-    <input type="password" id="p2" name="confirm" required/>
+    <input type="password" id="p2" name="confirm" minlength="8" required/>
     <input type="submit" name="register" value="Register"/>
+    <h2 id="error-msg"></h2>
 </form>
+
+<script defer type="text/javascript" src="static/js/reg_valid.js"></script> 
