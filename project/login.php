@@ -60,7 +60,7 @@ SELECT Roles.name FROM Roles JOIN UserRoles on Roles.id = UserRoles.role_id wher
                         $_SESSION["user"]["roles"] = []; //If user does not have role, set the user roles array to empty
                     }
                     //on successful login let's serve-side redirect the user to the home page with a second delay.
-                    die(header("refresh:1; url: home.php"));
+                    header("location:home.php");
                 }
                 else {
                     echo "<br>Invalid password, please try again.<br>"; //display error
