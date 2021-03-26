@@ -26,12 +26,12 @@ if (isset($_POST["register"])) {
     }
     $isValid = true;
     //If passwords match, continue
-    if ($password == $confirm) {
-        echo "Passwords match <br>";
+    if ($password != $confirm) {
+       echo "Passwords don't match <br>";
+       $isValid = false;
     }
     else {
-        echo "Passwords don't match<br>";
-        $isValid = false;
+
     }
     //If a field is not set, fail validation
     if (!isset($email) || !isset($password) || !isset($confirm) || !isset($username)) {
@@ -74,9 +74,9 @@ if (isset($_POST["register"])) {
 <!--User registration form -->
 <form id="user-reg" class="user-reg" method="POST">
     <label for="username">Username:</label>
-    <input type="text" id="username" name="username" minlength="6" maxlength="60" required/>
+    <input type="text" id="username" name="username" minlength="6" maxlength="60" value="<?php if (!isset($_POST["username"])) {echo '';} else {echo $_POST["username"];} ?>" required/>
     <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required/>
+    <input type="email" id="email" name="email" value="<?php if (!isset($_POST["email"])) {echo '';} else {echo $_POST["email"];} ?>" required/>
     <label for="p1">Password:</label>
     <input type="password" id="p1" name="password" minlength="8"required/>
     <label for="p2">Confirm Password:</label>

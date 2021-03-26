@@ -34,4 +34,13 @@ function get_id() {
         return $_SESSION["user"]["id"];
     }
 }
+
+function safer_echo($var) {
+    if (!isset($var)) {
+        echo "";
+        return;
+    }
+        echo htmlspecialchars($var, ENT_QUOTES, "UTF-8");
+        return;
+}
 ?>
