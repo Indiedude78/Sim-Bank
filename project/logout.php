@@ -7,7 +7,7 @@ session_unset();
 // destroy the session
 session_destroy();
 echo "<br><h3>Logged out</h3>";
-die(header("Location: index.php"));
+die(header("refresh:2;url:login.php")); //redirect to login page
 //echo "<pre>" . var_export($_SESSION, true) . "</pre>";
 
 ?>
