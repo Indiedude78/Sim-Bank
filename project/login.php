@@ -44,6 +44,7 @@ if (isset($_POST["login"])) { //checl to see if form is set
             if ($result && isset($result["password"])) { //check to see if userlogin data matches table data
                 $password_hash_from_db = $result["password"];
                 if (password_verify($password, $password_hash_from_db)) { //verify password
+                    //User roles
                     $stmt = $db->prepare("
 SELECT Roles.name FROM Roles JOIN UserRoles on Roles.id = UserRoles.role_id where UserRoles.user_id = :user_id and Roles.is_active = 1 and UserRoles.is_active = 1");
                     $stmt->execute([":user_id" => $result["id"]]);
@@ -56,7 +57,7 @@ SELECT Roles.name FROM Roles JOIN UserRoles on Roles.id = UserRoles.role_id wher
                         $_SESSION["user"]["roles"] = $roles; //set roles if exists
                     }
                     else {
-                        $_SESSION["user"]["roles"] = [];
+                        $_SESSION["user"]["roles"] = []; //If user does not have role, set the user roles array to empty
                     }
                     //on successful login let's serve-side redirect the user to the home page with a second delay.
                     die(header("refresh:1; url: home.php"));
