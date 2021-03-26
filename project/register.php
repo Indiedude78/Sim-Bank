@@ -1,25 +1,31 @@
-<?php require_once(__DIR__ . "/partials/nav.php"); ?>
+
+<?php require_once(__DIR__ . "/partials/nav.php"); //Include Navigation bar?>
 
 <?php
+//check to see if the form is set
 if (isset($_POST["register"])) {
     $username = null;
     $email = null;
     $password = null;
     $confirm = null;
+    //check to see if username is set
     if (isset($_POST["username"])) {
         $username = $_POST["username"];
     }
+    //check to see if email is set
     if (isset($_POST["email"])) {
         $email = $_POST["email"];
     }
+    //check to see if password is set
     if (isset($_POST["password"])) {
         $password = $_POST["password"];
     }
+    //check to see if confirm password is set
     if (isset($_POST["confirm"])) {
         $confirm = $_POST["confirm"];
     }
     $isValid = true;
-    //check if passwords match on the server side
+    //If passwords match, continue
     if ($password == $confirm) {
         echo "Passwords match <br>";
     }
@@ -27,29 +33,30 @@ if (isset($_POST["register"])) {
         echo "Passwords don't match<br>";
         $isValid = false;
     }
+    //If a field is not set, fail validation
     if (!isset($email) || !isset($password) || !isset($confirm) || !isset($username)) {
         $isValid = false;
     }
-    //TODO other validation as desired, remember this is the last line of defense
+    
     if ($isValid) {
-        $hash = password_hash($password, PASSWORD_BCRYPT);
+        $hash = password_hash($password, PASSWORD_BCRYPT); //Encrypt password
         
-        $db = getDB();
+        $db = getDB(); //get DB
         if (isset($db)) {
-            //here we'll use placeholders to let PDO map and sanitize our data
+            //Use placeholders to sanitize data
             $stmt = $db->prepare("INSERT INTO Users(username, email, password) VALUES(:username, :email, :password)");
-            //here's the data map for the parameter to data
+            //Data map to put into the DB
             $params = array(":username" => $username, ":email" => $email, ":password" => $hash);
             $r = $stmt->execute($params);
             //let's just see what's returned
             //echo "db returned: " . var_export($r, true);
             $e = $stmt->errorInfo();
-            if ($e[0] == "00000") {
+            if ($e[0] == "00000") { //If everything works
                 echo "<br>Welcome! You successfully registered, please login.";
-                header("refresh:4;url=login.php");
+                die(header("refresh:2;url=login.php")); //Wait 2 seconds and redirect to login page and kill script
             }
             else {
-                if ($e[0] == "23000") {
+                if ($e[0] == "23000") { //Registered email or username
                     echo "<br>Either username or email is already registered, please try again";
                 }
                 else {
@@ -64,6 +71,7 @@ if (isset($_POST["register"])) {
     }
 }
 ?>
+<!--User registration form -->
 <form id="user-reg" class="user-reg" method="POST">
     <label for="username">Username:</label>
     <input type="text" id="username" name="username" minlength="6" maxlength="60" required/>
@@ -74,7 +82,8 @@ if (isset($_POST["register"])) {
     <label for="p2">Confirm Password:</label>
     <input type="password" id="p2" name="confirm" minlength="8" required/>
     <input type="submit" name="register" value="Register"/>
+    <!--Javascript error messages displayed-->
     <h2 id="error-msg"></h2>
 </form>
-
+<!--Include Javascript for client-side validation-->
 <script defer type="text/javascript" src="static/js/reg_valid.js"></script> 
