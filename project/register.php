@@ -49,7 +49,7 @@ if (isset($_POST["register"])) {
             $params = array(":username" => $username, ":email" => $email, ":password" => $hash);
             $r = $stmt->execute($params);
             //let's just see what's returned
-            //echo "db returned: " . var_export($r, true);
+            //echo "db returned: " . var_export($r, true); <-- Debug message
             $e = $stmt->errorInfo();
             if ($e[0] == "00000") { //If everything works
                 echo "<br>Welcome! You successfully registered, please login.";
