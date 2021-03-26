@@ -35,7 +35,7 @@ if (isset($_POST["login"])) { //checl to see if form is set
 
             $params = array(":email" => $email); //map email to its variable
             $r = $stmt->execute($params);
-            //echo "db returned: " . var_export($r, true);
+            //echo "db returned: " . var_export($r, true); <-- Debug message
             $e = $stmt->errorInfo();
             if ($e[0] != "00000") { //If error exists, output error message
                 echo "uh oh something went wrong";
