@@ -78,9 +78,9 @@ if (isset($_POST["register"])) {
     <label for="email">Email:</label>
     <input type="email" id="email" name="email" value="<?php if (!isset($_POST["email"])) {echo '';} else {echo $_POST["email"];} ?>" required/>
     <label for="p1">Password:</label>
-    <input type="password" id="p1" name="password" minlength="8"required/>
+    <input type="password" id="p1" name="password" minlength="8" maxlength="60" required/>
     <label for="p2">Confirm Password:</label>
-    <input type="password" id="p2" name="confirm" minlength="8" required/>
+    <input type="password" id="p2" name="confirm" minlength="8" maxlength="60" required/>
     <input type="submit" name="register" value="Register"/>
     <!--Javascript error messages displayed-->
     <h2 id="error-msg"></h2>
