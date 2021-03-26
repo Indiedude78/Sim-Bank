@@ -3,10 +3,10 @@ session_start();//we can start our session here so we don't need to worry about 
 require_once(__DIR__ . "/db.php");
 //this file will contain any helpful functions we create
 //I have provided two for you
-function is_logged_in(){
+function is_logged_in(){ //Check to see if user is logged in
     return isset($_SESSION["user"]);
 }
-function has_role($role){
+function has_role($role){  //Check to see if user has a role
     if(is_logged_in() && isset($_SESSION["user"]["roles"])){
         foreach($_SESSION["user"]["roles"] as $r){
             if($r["name"] == $role){
