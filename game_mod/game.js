@@ -113,6 +113,8 @@ function endGame() {
     context.fillStyle = '#000000';
     context.font = '24px Arial';
     context.textAlign = 'center';
+    context.fillText('Score: ' + score, (canvas.width / 2), (canvas.height / 2) - 50);
+    context.fillText('Bonus Multiplier: ' + bonusMultiplyer, canvas.width / 2, (canvas.height / 2) - 25)
     context.fillText('Final Score: ' + (score * bonusMultiplyer), canvas.width / 2, canvas.height / 2);
 }
 
