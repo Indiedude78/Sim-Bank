@@ -1,7 +1,7 @@
 <!--Include navigation bar-->
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
 <!--User login form-->
-<form class="user-reg" method="POST">
+<form id="user-reg" method="POST">
     <label for="user-login">Email or Username:</label>
     <input type="text" id="email" name="user-login"/>
     <label for="p1">Password:</label>
@@ -38,7 +38,7 @@ if (isset($_POST["login"])) { //checl to see if form is set
             //echo "db returned: " . var_export($r, true); <-- Debug message
             $e = $stmt->errorInfo();
             if ($e[0] != "00000") { //If error exists, output error message
-                echo "uh oh something went wrong";
+                flash("Something went wrong");
             }
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             if ($result && isset($result["password"])) { //check to see if userlogin data matches table data
@@ -60,19 +60,20 @@ SELECT Roles.name FROM Roles JOIN UserRoles on Roles.id = UserRoles.role_id wher
                         $_SESSION["user"]["roles"] = []; //If user does not have role, set the user roles array to empty
                     }
                     //on successful login let's serve-side redirect the user to the home page with a second delay.
-                    header("location:home.php");
+                    header("Location:home.php");
                 }
                 else {
-                    echo "<br>Invalid password, please try again.<br>"; //display error
+                    flash("Invalid password"); //display error
                 }
             }
             else {
-                echo "<br>Invalid user.<br>";
+                flash("Invalid user");
             }
         }
     }
     else {
-        echo "There was a validation issue.";
+        flash("There was a validation issue");
     }
 }
 ?>
+<?php require(__DIR__ . "/partials/flash.php"); ?>

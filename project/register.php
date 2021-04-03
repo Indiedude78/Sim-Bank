@@ -27,7 +27,7 @@ if (isset($_POST["register"])) {
     $isValid = true;
     //If passwords match, continue
     if ($password != $confirm) {
-       echo "Passwords don't match <br>";
+       flash("Passwords don't match");
        $isValid = false;
     }
     else {
@@ -52,22 +52,22 @@ if (isset($_POST["register"])) {
             //echo "db returned: " . var_export($r, true); <-- Debug message
             $e = $stmt->errorInfo();
             if ($e[0] == "00000") { //If everything works
-                echo "<br>Welcome! You successfully registered, please login.";
-                die(header("refresh:2;url=login.php")); //Wait 2 seconds and redirect to login page and kill script
+                flash("You have successfully registered!");
+                header("Location: login.php"); //Wait 2 seconds and redirect to login page and kill script
             }
             else {
                 if ($e[0] == "23000") { //Registered email or username
-                    echo "<br>Either username or email is already registered, please try again";
+                    flash("Email or username exists");
                 }
                 else {
-                    echo "<br>Something went wrong.";
+                    flash("Something went wrong!");
                 }
                 
             }
         }
     }
     else {
-        echo "There was a validation issue";
+        flash("There was a validation issue");
     }
 }
 ?>
@@ -83,7 +83,8 @@ if (isset($_POST["register"])) {
     <input type="password" id="p2" name="confirm" minlength="8" maxlength="60" required/>
     <input type="submit" name="register" value="Register"/>
     <!--Javascript error messages displayed-->
-    <h2 id="error-msg"></h2>
+    <?php flash('<p id="error-msg"></p>'); ?>
 </form>
 <!--Include Javascript for client-side validation-->
 <script defer type="text/javascript" src="static/js/reg_valid.js"></script> 
+<?php require(__DIR__ . "/partials/flash.php"); ?>

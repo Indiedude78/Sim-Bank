@@ -6,9 +6,10 @@
 session_unset();
 // destroy the session
 session_destroy();
-echo "<br><h3>Logged out</h3>";
-die(header("refresh:2;url=login.php")); //redirect to index page
+flash("You have been logged out, redirecting...");
+header("refresh:2;url=login.php"); //redirect to index page
 //echo "<pre>" . var_export($_SESSION, true) . "</pre>";
 //Debug messages are commented out
 
 ?>
+<?php require(__DIR__ . "/partials/flash.php"); ?>
