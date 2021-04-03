@@ -2,7 +2,7 @@
 body {
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 1em;
-    background-image: linear-gradient(to bottom left, #ffffffe7, #a2caffd8 );
+    background-image: linear-gradient(to bottom right, #f3fff1d8, #9bfda9d8 );
 }
 
 ul[class="nav"] {
@@ -28,15 +28,18 @@ ul[class="nav"] {
 }
 
 .nav > li a:hover {
-    background-color:  #45a29e;
+    background-color:  #01ff56;
 }
 
-form[class="user-reg"] {
+form[id="user-reg"] {
+    border-radius: 30px;
     float: left;
     position: relative;
     margin-right: 100%;
+    margin-left: 0.5cm;
     padding: 25;
     font-size: 0.5em;
+    background-color: rgba(44, 247, 111, 0.63)
 }
 
 form > h4 {
@@ -76,13 +79,33 @@ input[type=submit] {
     margin-top: 25px;
    /* margin: 8px;*/
     border: 5px;
-    border-color: #3c8884;
-    border-radius: 4px;
+    border-color: #008f004d;
+    border-radius: 25px;
+    border-width: medium;
     cursor: pointer;
 }
 
 input[type=submit]:hover {
-    background-color:#45a29d8a;
+    background-color:#01ff56;
+}
+
+div#flash{
+    display: block;
+    width: 450;
+    float: left;
+    text-align: center;
+    font-size: 1.2em;
+    margin: 8;
+    position: relative;
+    padding-top: 40;
+}
+
+div#message {
+    margin-top: 0px;
+    margin-right: auto;
+    margin-bottom: 10px;
+    margin-left: auto;
+    padding: 10;
 }
 
 h3 {

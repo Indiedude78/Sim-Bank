@@ -30,7 +30,7 @@ if (isset($_POST["saved"])) {
             }
         }
         if ($inUse > 0) {
-            echo "Email is already in use";
+            flash("Email already in use");
             //for now we can just stop the rest of the update
             $isValid = false;
         }
@@ -54,7 +54,7 @@ if (isset($_POST["saved"])) {
             }
         }
         if ($inUse > 0) {
-            echo "Username is already in use";
+            flash("Username already in user");
             //for now we can just stop the rest of the update
             $isValid = false;
         }
@@ -66,10 +66,10 @@ if (isset($_POST["saved"])) {
         $stmt = $db->prepare("UPDATE Users set email = :email, username= :username where id = :id");
         $r = $stmt->execute([":email" => $newEmail, ":username" => $newUsername, ":id" => get_id()]);
         if ($r) {
-            echo "Updated profile";
+            flash("Profile updated!");
         }
         else {
-            echo "Error updating profile";
+           flash("Error updating profile");
         }
         //password is optional, so check if it's even set
         //if so, then check if it's a valid reset request
@@ -81,10 +81,10 @@ if (isset($_POST["saved"])) {
                 $stmt = $db->prepare("UPDATE Users set password = :password where id = :id");
                 $r = $stmt->execute([":id" => get_user_id(), ":password" => $hash]);
                 if ($r) {
-                    echo "Reset password";
+                    flash("Reset password");
                 }
                 else {
-                    echo "Error resetting password";
+                    flash("Error resetting password");
                 }
             }
         }
@@ -108,7 +108,7 @@ if (isset($_POST["saved"])) {
 
 ?>
 
-<form class="user-reg" method="POST">
+<form id="user-reg" method="POST">
     <label for="email">Email</label>
     <input type="email" name="email" value="<?php safer_echo(get_email()); ?>"/>
     <label for="username">Username</label>
@@ -120,3 +120,4 @@ if (isset($_POST["saved"])) {
     <input type="password" name="p2"/>
     <input type="submit" name="saved" value="Save Profile"/>
 </form>
+<?php require(__DIR__ . "/partials/flash.php"); ?>
