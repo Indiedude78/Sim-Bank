@@ -2,15 +2,24 @@
 body {
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 1em;
-    background-image: linear-gradient(to bottom right, #f3fff1d8, #9bfda9d8 );
+    background-image: linear-gradient(to bottom right, #f3fff1d8, #b3ffbe );
 }
 
-ul[class="nav"] {
+h2 {
+    position: fixed;
+}
+
+nav#nav {
+    width: 50%;
+    height: auto;
+    float: right;
+}
+
+ul.nav {
     list-style-type: none;
     margin: 1.5em;
-    margin-left: 77%;
     padding: 5px;
-    overflow: auto;
+    overflow: revert;
     background-color:  transparent;
 }
 
@@ -39,7 +48,7 @@ form[id="user-reg"] {
     margin-left: 0.5cm;
     padding: 25;
     font-size: 0.5em;
-    background-color: rgba(44, 247, 111, 0.63)
+    background-color: rgba(79, 255, 73, 0.692)
 }
 
 form > h4 {
