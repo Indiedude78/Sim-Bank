@@ -122,6 +122,40 @@ h3 {
     color: inherit;
 }
 
+div.dashboard-container {
+    position: absolute;
+    top: 20%;
+    left: 85%;
+    margin: 20;
+    border-radius: 15px;
+    background-color: #a3ffb0c2;
+}
+
+ul#dashboard {
+    list-style-type: none;
+    margin: 20px;
+    padding: unset;
+    
+}
+
+ul#dashboard > li {
+    text-align: center;
+    padding: 20px;
+}
+
+ul#dashboard > li a {
+    display: list-item;
+    color: #000000;
+    text-decoration: none;
+    padding: 5px;
+    font-size: large;
+}
+
+ul#dashboard > li a:hover {
+    background-color: #00ff22;
+    border-radius: 12px;
+}
+
 #text {
     color:  black;
     font-family: inherit;
