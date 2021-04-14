@@ -7,7 +7,6 @@ if (!has_role("Admin")) {
 }
 ?>
 
-<?php flash("<p id='error-msg'></p>"); ?>
 <form id="user-reg" class="user-reg" method="POST">
     <label for="account_num">Account Number:</label>
     <input type="number" id="account_num" name="account_num" maxlength="12" value="<?php echo set_account_num(12);?>" required readonly/>
@@ -52,5 +51,4 @@ if (isset($_POST["save"])) {
 }
 
 ?>
-<script defer type="text/javascript" src="static/js/check_min_deposit.js"></script>
 <?php require(__DIR__ . "/partials/flash.php"); ?>

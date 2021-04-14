@@ -156,6 +156,19 @@ ul#dashboard > li a:hover {
     border-radius: 12px;
 }
 
+.account-information {
+    width: fit-content;
+    height: fit-content;
+    padding: 25px;
+    position: fixed;
+    text-align: center;
+    margin: 20;
+    top: 75;
+    left: 500;
+    background: #04ff006e;
+    border-radius: 25px;
+}
+
 #text {
     color:  black;
     font-family: inherit;
