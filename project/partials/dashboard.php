@@ -8,7 +8,7 @@
 <div class="dashboard-container">
     <ul id="dashboard">
         <li><a href="test_create_accounts.php">Create Account</a></li>
-        <li><a href="#">View Accounts</a></li>
+        <li><a href="test_list_accounts.php">View Accounts</a></li>
         <li><a href="#">Deposit</a></li>
         <li><a href="#">Withdraw</a></li>
         <li><a href="#">Transfer</a></li>
