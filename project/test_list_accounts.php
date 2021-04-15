@@ -5,6 +5,9 @@ if (!has_role("Admin")) {
     die(header("Location: home.php"));
 }
 ?>
+<?php 
+    require_once(__DIR__ . "/partials/dashboard.php");
+?>
 
 <?php 
 $acc_type = array("Checking", "Saving"); 
@@ -29,7 +32,7 @@ if (isset($_GET["search"])) {
     $user_id = get_id();
     if (isset($_GET["account_type"])) {
         $db = getDB();
-        $stmt = $db->prepare("SELECT account_number, balance FROM Accounts WHERE account_type = :acc_type and user_id = :id LIMIT 5");
+        $stmt = $db->prepare("SELECT account_number, balance, id FROM Accounts WHERE account_type = :acc_type and user_id = :id LIMIT 5");
         $r = $stmt->execute([
             ":acc_type" => $query_acc,
             ":id" => $user_id
@@ -52,10 +55,11 @@ if (isset($_GET["search"])) {
     <div>
         <?php foreach($result as $r): ?>
             <h5>Account Number:</h5>
-            <div id="account_number"><?php safer_echo($r["account_number"]); ?></div>
+            <div id="account_number"><a href="test_transaction_history.php?id=<?php safer_echo($r["id"]) ?>"><?php safer_echo($r["account_number"]); ?></a></div>
             <h5>Account Balance:</h5>
             <div id="account_balance"><?php safer_echo($r["balance"]) ?></div>
         <?php endforeach; ?>
     </div>
 </div>
 <?php endif; ?>
+<?php require(__DIR__ . "/partials/flash.php"); ?>

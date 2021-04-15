@@ -6,6 +6,9 @@ if (!has_role("Admin")) {
     die(header("Location : login.php"));
 }
 ?>
+<?php 
+    require_once(__DIR__ . "/partials/dashboard.php");
+?>
 
 <form id="user-reg" class="user-reg" method="POST">
     <label for="account_num">Account Number:</label>
@@ -39,6 +42,51 @@ if (isset($_POST["save"])) {
         if ($r) {
             flash("Account created successfully");
             flash("Account number: " . $account_num);
+            $account_src = 1;
+            $account_dest = $db->lastInsertId();
+            $balance = -$balance;
+            $transaction_type = "deposit";
+            $memo = "Initial deposit";
+            $total = $balance;
+            $stmt = $db->prepare("INSERT INTO Transactions(account_source, account_destination, balance_change, transaction_type, memo, expected_total) VALUES(:account_src, :account_dest, :balance_change, :transaction_type, :memo, :total)");
+            $r = $stmt->execute([
+                ":account_src"=>$account_src,
+                ":account_dest"=>$account_dest,
+                ":balance_change"=>$balance,
+                "transaction_type"=>$transaction_type,
+                ":memo"=>$memo,
+                "total"=>$total
+            ]);
+            $stmt = $db->prepare("SELECT balance FROM Accounts where id = 1");
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            //flash($result["balance"]);
+            $newBalance = $total + $result["balance"];
+            //flash($newBalance);
+            $stmt = $db->prepare("UPDATE Accounts set balance = :balance where id = 1 and account_number = 000000000000");
+            $r = $stmt->execute([":balance"=>$newBalance]);
+            
+                
+                
+            
+            if ($r) {
+                flash("Transaction recorded");
+                $account_src = $account_dest;
+                $account_dest = 1;
+                $balance = -$balance;
+                $transaction_type = "deposit";
+                $memo = "Initial deposit";
+                $total = $balance;
+                $stmt = $db->prepare("INSERT INTO Transactions(account_source, account_destination, balance_change, transaction_type, memo, expected_total) VALUES(:account_src, :account_dest, :balance_change, :transaction_type, :memo, :total)");
+                $r = $stmt->execute([
+                    ":account_src"=>$account_src,
+                    ":account_dest"=>$account_dest,
+                    ":balance_change"=>$balance,
+                    "transaction_type"=>$transaction_type,
+                    ":memo"=>$memo,
+                    "total"=>$total
+                ]);
+            }
         }
         else {
             $e = $stmt->errorInfo();
