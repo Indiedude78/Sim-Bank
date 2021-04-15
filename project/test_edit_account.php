@@ -6,7 +6,9 @@ if (!has_role("Admin")) {
     die(header("Location : login.php"));
 }
 ?>
-
+<?php 
+    require_once(__DIR__ . "/partials/dashboard.php");
+?>
 <?php 
 if (isset($_GET["id"])) {
     $id = $_GET["id"];
