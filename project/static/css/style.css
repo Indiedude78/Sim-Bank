@@ -160,7 +160,7 @@ ul#dashboard > li a:hover {
     width: fit-content;
     height: fit-content;
     padding: 25px;
-    position: fixed;
+    position: absolute;
     text-align: center;
     margin: 20;
     top: 75;
