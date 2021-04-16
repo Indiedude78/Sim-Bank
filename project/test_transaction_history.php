@@ -8,13 +8,13 @@ if (isset($_GET["id"]) && $_GET["id"] != 1) {
     $acc_id = $_GET["id"];
     $user_id = get_id();
     $db = getDB();
-    $stmt = $db->prepare("SELECT Accounts.account_number, Accounts.account_type, balance_change, transaction_type, memo, Accounts.balance FROM Transactions JOIN Accounts ON Transactions.account_source = Accounts.id WHERE Accounts.id = :id and Accounts.user_id = :user_id");
+    $stmt = $db->prepare("SELECT Accounts.account_number, Accounts.account_type, balance_change, transaction_type, memo, expected_total, Accounts.balance FROM Transactions JOIN Accounts ON Transactions.account_source = Accounts.id WHERE Accounts.id = :id and Accounts.user_id = :user_id LIMIT 10");
     $r = $stmt->execute([":id"=>$acc_id, ":user_id"=>$user_id]);
     $e = $stmt->errorInfo();
     if ($e[0] != "00000") {
         flash("Something went wrong");
     }
-    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 else {
     flash("You do not have permission to do this!");
@@ -28,16 +28,19 @@ else {
         <th>Deposit or Withdrawal</th>
         <th>Transaction Type</th>
         <th>Memo</th>
-        <th>Current Balance</th>
+        <th>Balance Change</th>
     </tr>
     <?php if (isset($result)): ?>
-        
-            <th><?php safer_echo($result["account_number"]); ?></th>
-            <th><?php safer_echo($result["account_type"]); ?></th>
-            <th><?php safer_echo($result["balance_change"]); ?></th>
-            <th><?php safer_echo($result["transaction_type"]); ?></th>
-            <th><?php safer_echo($result["memo"]); ?></th>
-            <th><?php safer_echo($result["balance"]); ?></th>
+        <?php foreach($result as $r): ?>
+        <tr>
+            <th><?php safer_echo($r["account_number"]); ?></th>
+            <th><?php safer_echo($r["account_type"]); ?></th>
+            <th><?php safer_echo($r["balance_change"]); ?></th>
+            <th><?php safer_echo($r["transaction_type"]); ?></th>
+            <th><?php safer_echo($r["memo"]); ?></th>
+            <th><?php safer_echo($r["expected_total"]); ?></th>
+        </tr>
+        <?php endforeach; ?>
     <?php endif; ?>
 </table>
 </div>
