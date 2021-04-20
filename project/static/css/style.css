@@ -169,6 +169,45 @@ ul#dashboard > li a:hover {
     border-radius: 25px;
 }
 
+.transaction-information {
+    height: fit-content;
+    float: left;
+    margin-top: 30px;
+    margin-left: 30px;
+}
+
+table {
+    width: max-content;
+    height: fit-content;
+    border-style: solid;
+}
+
+thead {
+    background-color: #63e975d7;
+}
+
+th {
+    padding: 4mm;
+    border-bottom-style: groove;
+}
+
+td {
+    padding: 3mm;
+    text-align: center;
+}
+
+td.data-row {
+    border-bottom-style: solid;
+    border-color: #000000;
+}
+
+
+tfoot {
+    border-top-style: dotted;
+    border-top-color: #000000;
+    background-color: rgba(76, 255, 41, 0.712);
+}
+
 #text {
     color:  black;
     font-family: inherit;
