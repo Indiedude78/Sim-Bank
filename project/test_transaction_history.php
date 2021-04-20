@@ -21,26 +21,31 @@ else {
 }
 ?>
 <div class="transaction-information">
+<h3>Account Number:  <?php safer_echo($result[0]["account_number"]) ?></h3>
+<h4>Account Type:  <?php safer_echo($result[0]["account_type"]) ?></h4>
 <table>
+<thead>
     <tr>
-        <th>Account Number</th>
-        <th>Account Type</th>
-        <th>Deposit or Withdrawal</th>
+        <th>Balance Change</th>
         <th>Transaction Type</th>
         <th>Memo</th>
-        <th>Balance Change</th>
     </tr>
+</thead>
     <?php if (isset($result)): ?>
         <?php foreach($result as $r): ?>
-        <tr>
-            <th><?php safer_echo($r["account_number"]); ?></th>
-            <th><?php safer_echo($r["account_type"]); ?></th>
-            <th><?php safer_echo($r["balance_change"]); ?></th>
-            <th><?php safer_echo($r["transaction_type"]); ?></th>
-            <th><?php safer_echo($r["memo"]); ?></th>
-            <th><?php safer_echo($r["expected_total"]); ?></th>
-        </tr>
+        <tbody>
+            <tr>
+                <td class="data-row"><?php safer_echo($r["balance_change"]); ?></td>
+                <td class="data-row"><?php safer_echo($r["transaction_type"]); ?></td>
+                <td class="data-row"><?php safer_echo($r["memo"]); ?></td>
+            </tr>
+        </tbody>
         <?php endforeach; ?>
+        <tfoot>
+        <tr>
+            <td colspan="3" id="total"><?php safer_echo("$ " .$result[0]["balance"]) ?></td>
+        </tr>
+        </tfoot>
     <?php endif; ?>
 </table>
 </div>

@@ -10,7 +10,7 @@
         <li><a href="test_create_accounts.php">Create Account</a></li>
         <li><a href="test_list_accounts.php">View Accounts</a></li>
         <li><a href="test_deposit_account.php">Deposit</a></li>
-        <li><a href="#">Withdraw</a></li>
+        <li><a href="test_withdraw_account.php">Withdraw</a></li>
         <li><a href="#">Transfer</a></li>
         <li><a href="profile.php">Profile</a></li>
 
