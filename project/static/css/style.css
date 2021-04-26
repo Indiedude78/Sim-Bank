@@ -41,7 +41,7 @@ ul.nav {
 }
 
 form[id="user-reg"] {
-    border-radius: 30px;
+    border-radius: 15px;
     float: left;
     position: relative;
     margin-right: 100%;
@@ -74,13 +74,11 @@ input, select {
     margin: 10px 0;
     display: block;
     border: 1px solid rgba(0, 0, 0, 0.781);
-    border-radius: 16px;
     box-sizing: border-box;
     background-color: #ffffff;
 }
 
 input[type=submit] {
-    width: auto;
     background-color: white transparent;
     color: #000000;
     font-size: large;
@@ -89,7 +87,7 @@ input[type=submit] {
    /* margin: 8px;*/
     border: 5px;
     border-color: #008f004d;
-    border-radius: 25px;
+    border-radius: 12px;
     border-width: medium;
     cursor: pointer;
 }
