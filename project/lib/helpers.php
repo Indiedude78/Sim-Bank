@@ -70,4 +70,10 @@ function set_account_num($length) {
     }
     return $result;
 }
+
+function get_todays_date($timezone) {
+    date_default_timezone_set($timezone);
+    $date = date("Y-m-d");
+    return $date;
+}
 ?>
