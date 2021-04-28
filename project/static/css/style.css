@@ -115,6 +115,16 @@ div#message {
     padding: 10;
 }
 
+div#invalid-result {
+    position: relative;
+    top: 90%;
+    left: 8%;
+}
+
+div#invalid-result > h2 {
+    color: red;
+}
+
 h3 {
     font-size: 1.5em;
     color: inherit;
