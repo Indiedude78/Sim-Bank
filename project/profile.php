@@ -1,6 +1,6 @@
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
-<?php 
-    require_once(__DIR__ . "/partials/dashboard.php");
+<?php
+require_once(__DIR__ . "/partials/dashboard.php");
 ?>
 <?php
 //Note: we have this up here, so our update happens before our get/fetch
@@ -24,21 +24,18 @@ if (isset($_POST["saved"])) {
         $stmt = $db->prepare("SELECT COUNT(1) as InUse from Users where email = :email");
         $stmt->execute([":email" => $email]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        $inUse = 1;//default it to a failure scenario
+        $inUse = 1; //default it to a failure scenario
         if ($result && isset($result["InUse"])) {
             try {
                 $inUse = intval($result["InUse"]);
-            }
-            catch (Exception $e) {
-
+            } catch (Exception $e) {
             }
         }
         if ($inUse > 0) {
             flash("Email already in use");
             //for now we can just stop the rest of the update
             $isValid = false;
-        }
-        else {
+        } else {
             $newEmail = $email;
         }
     }
@@ -48,21 +45,18 @@ if (isset($_POST["saved"])) {
         $stmt = $db->prepare("SELECT COUNT(1) as InUse from Users where username = :username");
         $stmt->execute([":username" => $username]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        $inUse = 1;//default it to a failure scenario
+        $inUse = 1; //default it to a failure scenario
         if ($result && isset($result["InUse"])) {
             try {
                 $inUse = intval($result["InUse"]);
-            }
-            catch (Exception $e) {
-
+            } catch (Exception $e) {
             }
         }
         if ($inUse > 0) {
             flash("Username already in user");
             //for now we can just stop the rest of the update
             $isValid = false;
-        }
-        else {
+        } else {
             $newUsername = $username;
         }
     }
@@ -71,9 +65,8 @@ if (isset($_POST["saved"])) {
         $r = $stmt->execute([":email" => $newEmail, ":username" => $newUsername, ":id" => get_id()]);
         if ($r) {
             flash("Profile updated!");
-        }
-        else {
-           flash("Error updating profile");
+        } else {
+            flash("Error updating profile");
         }
         //password is optional, so check if it's even set
         //if so, then check if it's a valid reset request
@@ -83,28 +76,30 @@ if (isset($_POST["saved"])) {
                 $hash = password_hash($password, PASSWORD_BCRYPT);
                 //this one we'll do separate
                 $stmt = $db->prepare("UPDATE Users set password = :password where id = :id");
-                $r = $stmt->execute([":id" => get_user_id(), ":password" => $hash]);
+                $r = $stmt->execute([":id" => get_id(), ":password" => $hash]);
                 if ($r) {
                     flash("Reset password");
-                }
-                else {
+                } else {
                     flash("Error resetting password");
                 }
             }
         }
-//fetch/select fresh data in case anything changed
-        $stmt = $db->prepare("SELECT email, username from Users WHERE id = :id LIMIT 1");
+        //fetch/select fresh data in case anything changed
+        $stmt = $db->prepare("SELECT * from Users WHERE id = :id LIMIT 1");
         $stmt->execute([":id" => get_id()]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($result) {
             $email = $result["email"];
             $username = $result["username"];
+            $fname = $result["fname"];
+            $lname = $result["lname"];
             //let's update our session too
             $_SESSION["user"]["email"] = $email;
             $_SESSION["user"]["username"] = $username;
+            $_SESSION["user"]["fname"] = $fname;
+            $_SESSION["user"]["lname"] = $lname;
         }
-    }
-    else {
+    } else {
         //else for $isValid, though don't need to put anything here since the specific failure will output the message
     }
 }
@@ -113,15 +108,19 @@ if (isset($_POST["saved"])) {
 ?>
 
 <form id="user-reg" method="POST">
+    <label for="fname">First Name</label>
+    <input type="text" id="fname" name="fname" value="<?php safer_echo(get_first_name()); ?>" readonly />
+    <label for="lname">Last Name</label>
+    <input type="text" id="lname" name="lname" value="<?php safer_echo(get_last_name()); ?>" readonly />
     <label for="email">Email</label>
-    <input type="email" name="email" value="<?php safer_echo(get_email()); ?>"/>
+    <input type="email" name="email" value="<?php safer_echo(get_email()); ?>" />
     <label for="username">Username</label>
-    <input type="text" maxlength="60" name="username" value="<?php safer_echo(get_username()); ?>"/>
+    <input type="text" maxlength="60" name="username" value="<?php safer_echo(get_username()); ?>" />
     <!-- DO NOT PRELOAD PASSWORD-->
     <label for="pw">Password</label>
-    <input type="password" name="p1"/>
+    <input type="password" name="p1" />
     <label for="cpw">Confirm Password</label>
-    <input type="password" name="p2"/>
-    <input type="submit" name="saved" value="Save Profile"/>
+    <input type="password" name="p2" />
+    <input type="submit" name="saved" value="Save Profile" />
 </form>
 <?php require(__DIR__ . "/partials/flash.php"); ?>
