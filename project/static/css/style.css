@@ -2,7 +2,7 @@
 body {
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 1em;
-    background-image: linear-gradient(to bottom right, #f3fff1d8, #b3ffbe );
+    background-image: linear-gradient(to bottom right, #f3fff1d8, #73f5864a );
 }
 
 h2 {
@@ -10,17 +10,15 @@ h2 {
 }
 
 nav#nav {
-    width: 50%;
+    width: 100%;
     height: auto;
     float: right;
+    background: #78ff7f9e;
 }
 
 ul.nav {
     list-style-type: none;
-    margin: 1.5em;
-    padding: 5px;
-    overflow: revert;
-    background-color:  transparent;
+    margin: unset;
 }
 
 .nav > li {
@@ -41,14 +39,18 @@ ul.nav {
 }
 
 form[id="user-reg"] {
-    border-radius: 15px;
+    border-radius: 6px;
     float: left;
-    position: relative;
-    margin-right: 100%;
-    margin-left: 0.5cm;
+    position: fixed;
+    top: 20%;
+    width: fit-content;
+    /* margin-right: 100%; */
+    margin-left: 0.5cm; 
     padding: 25;
-    font-size: 0.5em;
-    background-color: rgba(79, 255, 73, 0.692)
+    font-size: 1.1em;
+    background-image: linear-gradient(
+177deg
+, #00ff0d, #9bff8894);
 }
 
 form > h4 {
@@ -62,6 +64,25 @@ form > h2 {
     font-size: 2.5em;
     overflow: auto;
 }
+
+form.transaction-form {
+    display: block;
+    overflow: auto;
+    border-radius: 6px;
+    /* float: left; */
+    position: relative;
+    top: 11%;
+    /* left: 500; */
+    width: fit-content;
+    /* margin-right: 100%; */
+    margin-left: 0.5cm;
+    padding: 25;
+    font-size: 1.1em;
+    background-image: linear-gradient( 
+177deg
+ , #00ff0d, #9bff8894);
+}
+
 
 label {
     font-size: 2.3em;
@@ -79,17 +100,19 @@ input, select {
 }
 
 input[type=submit] {
-    background-color: white transparent;
     color: #000000;
     font-size: large;
     padding: 14px 20px;
     margin-top: 25px;
-   /* margin: 8px;*/
+    /* margin: 8px; */
     border: 5px;
-    border-color: #008f004d;
+    border-color: #16ff164d;
     border-radius: 12px;
     border-width: medium;
     cursor: pointer;
+    background-image: linear-gradient(
+359deg
+, #ffffff, #a4ffa77a);
 }
 
 input[type=submit]:hover {
@@ -131,7 +154,7 @@ h3 {
 }
 
 div.dashboard-container {
-    position: absolute;
+    position: fixed;
     top: 20%;
     left: 85%;
     margin: 20;
@@ -141,7 +164,6 @@ div.dashboard-container {
 
 ul#dashboard {
     list-style-type: none;
-    margin: 20px;
     padding: unset;
     
 }
@@ -182,6 +204,7 @@ ul#dashboard > li a:hover {
     float: left;
     margin-top: 30px;
     margin-left: 30px;
+    position: relative;
 }
 
 table {

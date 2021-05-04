@@ -34,7 +34,7 @@ if (isset($_GET["id"]) && $_GET["id"] != 1) {
     $user_id = get_id();
     $db = getDB();
     if (!isset($_POST["submit"])) {
-        $stmt = $db->prepare("SELECT Accounts.account_number, Accounts.account_type, balance_change, transaction_type, memo, transaction_time, expected_total, Accounts.balance FROM Transactions JOIN Accounts ON Transactions.account_source = Accounts.id WHERE Accounts.id = :id and Accounts.user_id = :user_id LIMIT 10");
+        $stmt = $db->prepare("SELECT Accounts.account_number, Accounts.account_type, balance_change, transaction_type, memo, transaction_time, expected_total, Accounts.balance FROM Transactions JOIN Accounts ON Transactions.account_source = Accounts.id WHERE Accounts.id = :id and Accounts.user_id = :user_id LIMIT 20");
         $r = $stmt->execute([":id" => $acc_id, ":user_id" => $user_id]);
         $e = $stmt->errorInfo();
         if ($e[0] != "00000") {
@@ -48,7 +48,7 @@ if (isset($_GET["id"]) && $_GET["id"] != 1) {
         if (isset($_POST["transaction_type"]) && $_POST["start_date"] == null) {
             //echo "This is being run!!";
             $transaction_type = $_POST["transaction_type"];
-            $stmt = $db->prepare("SELECT Accounts.account_number, Accounts.account_type, balance_change, transaction_type, memo, transaction_time, expected_total, Accounts.balance FROM Transactions JOIN Accounts ON Transactions.account_source = Accounts.id WHERE Accounts.id = :id and Accounts.user_id = :user_id and transaction_type = :transaction_type LIMIT 10");
+            $stmt = $db->prepare("SELECT Accounts.account_number, Accounts.account_type, balance_change, transaction_type, memo, transaction_time, expected_total, Accounts.balance FROM Transactions JOIN Accounts ON Transactions.account_source = Accounts.id WHERE Accounts.id = :id and Accounts.user_id = :user_id and transaction_type = :transaction_type LIMIT 20");
             $r = $stmt->execute([
                 ":id" => $acc_id,
                 ":user_id" => $user_id,
@@ -69,7 +69,7 @@ if (isset($_GET["id"]) && $_GET["id"] != 1) {
                 $end_date = get_todays_date('America/New_York');
             }
             // echo $start_date . "<br>" . $end_date;
-            $stmt = $db->prepare("SELECT Accounts.account_number, Accounts.account_type, balance_change, transaction_type, memo, transaction_time, expected_total, Accounts.balance FROM Transactions JOIN Accounts ON Transactions.account_source = Accounts.id WHERE Accounts.id = :id and Accounts.user_id = :user_id and transaction_type = :transaction_type and transaction_time BETWEEN :startDate and :endDate LIMIT 10");
+            $stmt = $db->prepare("SELECT Accounts.account_number, Accounts.account_type, balance_change, transaction_type, memo, transaction_time, expected_total, Accounts.balance FROM Transactions JOIN Accounts ON Transactions.account_source = Accounts.id WHERE Accounts.id = :id and Accounts.user_id = :user_id and transaction_type = :transaction_type and transaction_time BETWEEN :startDate and :endDate LIMIT 20");
             $r = $stmt->execute([
                 ":id" => $acc_id,
                 ":user_id" => $user_id,
@@ -83,13 +83,14 @@ if (isset($_GET["id"]) && $_GET["id"] != 1) {
             }
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         } else {
-            $stmt = $db->prepare("SELECT Accounts.account_number, Accounts.account_type, balance_change, transaction_type, memo, transaction_time, expected_total, Accounts.balance FROM Transactions JOIN Accounts ON Transactions.account_source = Accounts.id WHERE Accounts.id = :id and Accounts.user_id = :user_id LIMIT 10");
+            $stmt = $db->prepare("SELECT Accounts.account_number, Accounts.account_type, balance_change, transaction_type, memo, transaction_time, expected_total, Accounts.balance FROM Transactions JOIN Accounts ON Transactions.account_source = Accounts.id WHERE Accounts.id = :id and Accounts.user_id = :user_id LIMIT 20");
             $r = $stmt->execute([":id" => $acc_id, ":user_id" => $user_id]);
             $e = $stmt->errorInfo();
             if ($e[0] != "00000") {
                 flash("Something went wrong");
             }
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            echo var_dump($result);
         }
     }
 } else {
