@@ -41,7 +41,7 @@ ul.nav {
 form[id="user-reg"] {
     border-radius: 6px;
     float: left;
-    position: fixed;
+    position: relative;
     top: 20%;
     width: fit-content;
     /* margin-right: 100%; */
@@ -72,10 +72,9 @@ form.transaction-form {
     /* float: left; */
     position: relative;
     top: 11%;
-    /* left: 500; */
+    left: 50;
     width: fit-content;
-    /* margin-right: 100%; */
-    margin-left: 0.5cm;
+    /* margin-right: unset; */
     padding: 25;
     font-size: 1.1em;
     background-image: linear-gradient( 
@@ -85,7 +84,7 @@ form.transaction-form {
 
 
 label {
-    font-size: 2.3em;
+    font-size: 1.1em;
     color: rgb(0, 0, 0);
 }
 
