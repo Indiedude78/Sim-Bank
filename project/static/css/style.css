@@ -122,10 +122,10 @@ input[type=submit]:hover {
 div#flash{
     display: block;
     width: 450;
-    float: left;
+    /* float: left; */
     text-align: center;
     font-size: 1.2em;
-    margin: 8;
+    /* margin: 8; */
     position: relative;
     padding-top: 40;
 }
