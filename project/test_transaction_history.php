@@ -8,6 +8,7 @@ require_once(__DIR__ . "/partials/dashboard.php");
 
 <?php
 $transaction_types = array("deposit", "withdraw", "transfer");
+
 ?>
 <form class="user-reg" id="user-reg" method="POST">
     <h1>Filter Transactions</h1>
@@ -33,14 +34,36 @@ if (isset($_GET["id"]) && $_GET["id"] != 1) {
     $acc_id = $_GET["id"];
     $user_id = get_id();
     $db = getDB();
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+    $stmt = $db->prepare("SELECT COUNT(*) as numOfTransactions FROM Transactions WHERE account_source = :acc_src");
+    $r = $stmt->execute([":acc_src" => $acc_id]);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    $numOfRecords = $result["numOfTransactions"];
+    if (isset($_GET["page"]) && $_GET["page"] > 0) {
+        $page = $_GET["page"];
+    } else {
+        $page = 1;
+    }
+    $perPage = 10;
+
+    $total_pages = ceil($numOfRecords / $perPage);
+    $offset = ($page - 1) * $perPage;
+
     if (!isset($_POST["submit"])) {
-        $stmt = $db->prepare("SELECT Accounts.account_number, Accounts.account_type, balance_change, transaction_type, memo, transaction_time, expected_total, Accounts.balance FROM Transactions JOIN Accounts ON Transactions.account_source = Accounts.id WHERE Accounts.id = :id and Accounts.user_id = :user_id LIMIT 20");
-        $r = $stmt->execute([":id" => $acc_id, ":user_id" => $user_id]);
+        $stmt = $db->prepare("SELECT Accounts.account_number, Accounts.account_type, balance_change, transaction_type, memo, transaction_time, expected_total, Accounts.balance FROM Transactions JOIN Accounts ON Transactions.account_source = Accounts.id WHERE Accounts.id = :id and Accounts.user_id = :user_id LIMIT :offset, :per_page");
+        $r = $stmt->execute([
+            ":id" => $acc_id,
+            ":user_id" => $user_id,
+            ":offset" => $offset,
+            ":per_page" => $perPage
+        ]);
         $e = $stmt->errorInfo();
         if ($e[0] != "00000") {
             flash("Something went wrong");
         }
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        //echo var_dump($result);
         /*foreach ($result as $r) {
             echo substr($r["transaction_time"], 0, 10) . "<br>";
         }*/
@@ -48,11 +71,13 @@ if (isset($_GET["id"]) && $_GET["id"] != 1) {
         if (isset($_POST["transaction_type"]) && $_POST["start_date"] == null) {
             //echo "This is being run!!";
             $transaction_type = $_POST["transaction_type"];
-            $stmt = $db->prepare("SELECT Accounts.account_number, Accounts.account_type, balance_change, transaction_type, memo, transaction_time, expected_total, Accounts.balance FROM Transactions JOIN Accounts ON Transactions.account_source = Accounts.id WHERE Accounts.id = :id and Accounts.user_id = :user_id and transaction_type = :transaction_type LIMIT 20");
+            $stmt = $db->prepare("SELECT Accounts.account_number, Accounts.account_type, balance_change, transaction_type, memo, transaction_time, expected_total, Accounts.balance FROM Transactions JOIN Accounts ON Transactions.account_source = Accounts.id WHERE Accounts.id = :id and Accounts.user_id = :user_id and transaction_type = :transaction_type LIMIT :offset, :per_page");
             $r = $stmt->execute([
                 ":id" => $acc_id,
                 ":user_id" => $user_id,
                 ":transaction_type" => $transaction_type,
+                ":offset" => $offset,
+                ":per_page" => $perPage
             ]);
             $e = $stmt->errorInfo();
             if ($e[0] != "00000") {
@@ -69,13 +94,15 @@ if (isset($_GET["id"]) && $_GET["id"] != 1) {
                 $end_date = get_todays_date('America/New_York');
             }
             // echo $start_date . "<br>" . $end_date;
-            $stmt = $db->prepare("SELECT Accounts.account_number, Accounts.account_type, balance_change, transaction_type, memo, transaction_time, expected_total, Accounts.balance FROM Transactions JOIN Accounts ON Transactions.account_source = Accounts.id WHERE Accounts.id = :id and Accounts.user_id = :user_id and transaction_type = :transaction_type and transaction_time BETWEEN :startDate and :endDate LIMIT 20");
+            $stmt = $db->prepare("SELECT Accounts.account_number, Accounts.account_type, balance_change, transaction_type, memo, transaction_time, expected_total, Accounts.balance FROM Transactions JOIN Accounts ON Transactions.account_source = Accounts.id WHERE Accounts.id = :id and Accounts.user_id = :user_id and transaction_type = :transaction_type and transaction_time BETWEEN :startDate and :endDate LIMIT :offset, :per_page");
             $r = $stmt->execute([
                 ":id" => $acc_id,
                 ":user_id" => $user_id,
                 ":transaction_type" => $transaction_type,
                 ":startDate" => $start_date,
-                ":endDate" => $end_date
+                ":endDate" => $end_date,
+                ":offset" => $offset,
+                ":per_page" => $perPage
             ]);
             $e = $stmt->errorInfo();
             if ($e[0] != "00000") {
@@ -83,14 +110,18 @@ if (isset($_GET["id"]) && $_GET["id"] != 1) {
             }
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         } else {
-            $stmt = $db->prepare("SELECT Accounts.account_number, Accounts.account_type, balance_change, transaction_type, memo, transaction_time, expected_total, Accounts.balance FROM Transactions JOIN Accounts ON Transactions.account_source = Accounts.id WHERE Accounts.id = :id and Accounts.user_id = :user_id LIMIT 20");
-            $r = $stmt->execute([":id" => $acc_id, ":user_id" => $user_id]);
+            $stmt = $db->prepare("SELECT Accounts.account_number, Accounts.account_type, balance_change, transaction_type, memo, transaction_time, expected_total, Accounts.balance FROM Transactions JOIN Accounts ON Transactions.account_source = Accounts.id WHERE Accounts.id = :id and Accounts.user_id = :user_id LIMIT :offset, :per_page");
+            $r = $stmt->execute([
+                ":id" => $acc_id,
+                ":user_id" => $user_id,
+                ":offset" => $offset,
+                ":per_page" => $perPage
+            ]);
             $e = $stmt->errorInfo();
             if ($e[0] != "00000") {
                 flash("Something went wrong");
             }
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            echo var_dump($result);
         }
     }
 } else {
@@ -127,13 +158,39 @@ if (isset($_GET["id"]) && $_GET["id"] != 1) {
                 </tfoot>
             <?php endif; ?>
         </table>
+        <div class="pagination-div">
+            <nav class="page-navigation">
+                <ul class="pagination">
+                    <li>
+                        <a href="<?php echo $_SERVER['PHP_SELF'] . "?id=" . $acc_id . "&page=" . ($page - 1) ?>" id="previous">Previous</a>
+                    </li>
+                    <li>
+                        <a href="<?php echo $_SERVER['PHP_SELF'] . "?id=" . $acc_id . "&page=" . ($page + 1) ?>" id="next">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </div>
 <?php endif; ?>
 
 <?php if (!isset($result[0]["account_number"])) : ?>
     <div id="invalid-result">
-        <h2>No results found</h2>
+        <?php flash("No results found"); ?>
     </div>
 <?php endif; ?>
 
 <?php require(__DIR__ . "/partials/flash.php"); ?>
+<script src="jquery/jquery.js"></script>
+
+<script>
+    $(document).ready(function() {
+        var currentPage = <?php echo $page; ?>;
+        var maxPage = <?php echo $total_pages; ?>;
+        if (currentPage == 1) {
+            $("#previous").hide();
+        }
+        if (currentPage >= maxPage) {
+            $("#next").hide();
+        }
+    });
+</script>

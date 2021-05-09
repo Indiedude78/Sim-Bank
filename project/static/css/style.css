@@ -206,6 +206,33 @@ ul#dashboard > li a:hover {
     position: relative;
 }
 
+.pagination-div {
+    margin: auto;
+    width: 50%;
+    padding-top: 20px;
+}
+
+.pagination-div a {
+    color: black;
+    text-decoration: none;
+    text-align: center;
+    padding: 20px 15px;
+}
+
+.pagination-div li {
+    float: left;
+}
+
+ul.pagination {
+    list-style: none;
+    font-size: 1.2em;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+
+
 table {
     width: max-content;
     height: fit-content;
