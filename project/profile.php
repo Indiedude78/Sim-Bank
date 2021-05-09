@@ -11,7 +11,6 @@ if (!is_logged_in()) {
     die(header("Location: login.php"));
 }
 
-
 $db = getDB();
 //save data if we submitted the form
 if (isset($_POST["saved"])) {
@@ -60,6 +59,19 @@ if (isset($_POST["saved"])) {
             $newUsername = $username;
         }
     }
+    $acc_visibility = $_POST["acc_status"];
+    if ($acc_visibility != is_private()) {
+        $stmt = $db->prepare("UPDATE Users set is_private = :acc_vis where id = :id");
+        $r = $stmt->execute([":acc_vis" => $acc_visibility, ":id" => get_id()]);
+        if ($r) {
+            flash("Profile visibility updated!");
+        } else {
+            flash("Something went wrong");
+        }
+    }
+
+
+
     if ($isValid) {
         $stmt = $db->prepare("UPDATE Users set email = :email, username= :username where id = :id");
         $r = $stmt->execute([":email" => $newEmail, ":username" => $newUsername, ":id" => get_id()]);
@@ -93,11 +105,13 @@ if (isset($_POST["saved"])) {
             $username = $result["username"];
             $fname = $result["fname"];
             $lname = $result["lname"];
+            $visibility = $result["is_private"];
             //let's update our session too
             $_SESSION["user"]["email"] = $email;
             $_SESSION["user"]["username"] = $username;
             $_SESSION["user"]["fname"] = $fname;
             $_SESSION["user"]["lname"] = $lname;
+            $_SESSION["user"]["is_private"] = $visibility;
         }
     } else {
         //else for $isValid, though don't need to put anything here since the specific failure will output the message
@@ -116,6 +130,10 @@ if (isset($_POST["saved"])) {
     <input type="email" name="email" value="<?php safer_echo(get_email()); ?>" />
     <label for="username">Username</label>
     <input type="text" maxlength="60" name="username" value="<?php safer_echo(get_username()); ?>" />
+    <label for="acc_private">Private</label>
+    <input type="radio" id="acc_private" name="acc_status" value="1" />
+    <label for="acc_public">Public</label>
+    <input type="radio" id="acc_public" name="acc_status" value="0" />
     <!-- DO NOT PRELOAD PASSWORD-->
     <label for="pw">Password</label>
     <input type="password" name="p1" />
@@ -124,3 +142,16 @@ if (isset($_POST["saved"])) {
     <input type="submit" name="saved" value="Save Profile" />
 </form>
 <?php require(__DIR__ . "/partials/flash.php"); ?>
+<script src="jquery/jquery.js"></script>
+<script>
+    $(document).ready(function() {
+        var acc_visibilty = <?php safer_echo(is_private()); ?>;
+        var $radioButtons = $('input:radio[name=acc_status]');
+
+        if (acc_visibilty == 1 && $radioButtons.is(':checked') === false) {
+            $radioButtons.filter('[value=1]').prop('checked', true);
+        } else {
+            $radioButtons.filter('[value=0]').prop('checked', true);
+        }
+    });
+</script>

@@ -63,7 +63,7 @@ if (isset($_POST["search"])) {
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($result) {
             $dest_user_id = $result["id"];
-            $stmt = $db->prepare("SELECT Users.lname, Users.fname, Users.id, account_number, Accounts.id, account_type, balance FROM Accounts JOIN Users ON Accounts.user_id = Users.id AND Accounts.user_id = :user_id AND account_number LIKE :acc_num AND Accounts.id != '1' LIMIT 1");
+            $stmt = $db->prepare("SELECT Users.lname, Users.fname, Users.id, Users.is_private, Users.email, account_number, Accounts.id, account_type, balance FROM Accounts JOIN Users ON Accounts.user_id = Users.id AND Accounts.user_id = :user_id AND account_number LIKE :acc_num AND Accounts.id != '1' LIMIT 1");
             $r = $stmt->execute([
                 ":user_id" => $dest_user_id,
                 ":acc_num" => "%$dest_acc_partial_num"
@@ -91,6 +91,10 @@ if (isset($_POST["search"])) {
         <input type="text" disabled readonly id="dest_acc_prefilled" name="dest_acc_prefilled" value="<?php safer_echo($dest_acc_result["account_number"]); ?>" />
         <label for="dest_user_prefilled">Destination User:</label>
         <input type="text" disabled readonly id="dest_user_prefilled" name="dest_user_prefilled" value="<?php safer_echo($dest_acc_result["fname"] . " " . $dest_acc_result["lname"]); ?>" />
+        <?php if ($dest_acc_result["is_private"] == 0) : ?>
+            <label for="dest_user_prefilled_email">Destination User Email:</label>
+            <input type="text" disabled readonly id="dest_user_prefilled_email" name="dest_user_prefilled_email" value="<?php safer_echo($dest_acc_result["email"]) ?>" />
+        <?php endif; ?>
         <label for="amount">Transfer Amount:</label>
         <input type="number" id="amount" name="amount" placeholder="00.00" min="1" step="any" required />
         <label for="memo">Memo:</label><br>
