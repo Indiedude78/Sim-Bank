@@ -54,6 +54,13 @@ function get_id()
     }
 }
 
+function is_private()
+{
+    if (is_logged_in() and isset($_SESSION["user"]["is_private"])) {
+        return $_SESSION["user"]["is_private"];
+    }
+}
+
 function safer_echo($var)
 {
     if (!isset($var)) {

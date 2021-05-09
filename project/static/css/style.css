@@ -114,6 +114,15 @@ input[type=submit] {
 , #ffffff, #a4ffa77a);
 }
 
+input[type=radio] {
+    display: block;
+    margin: unset;
+    width: 50%;
+    position: relative;
+    top: -16;
+}
+
+
 input[type=submit]:hover {
     background-color:#01ff56;
 }
