@@ -81,9 +81,9 @@ if (isset($_POST["save"])) {
                 ":account_src" => $account_src,
                 ":account_dest" => $account_dest,
                 ":balance_change" => $balance,
-                "transaction_type" => $transaction_type,
+                ":transaction_type" => $transaction_type,
                 ":memo" => $memo,
-                "total" => $total
+                ":total" => $total
             ]);
             $stmt = $db->prepare("SELECT balance FROM Accounts where id = 1");
             $stmt->execute();
@@ -110,13 +110,14 @@ if (isset($_POST["save"])) {
                     ":account_src" => $account_src,
                     ":account_dest" => $account_dest,
                     ":balance_change" => $balance,
-                    "transaction_type" => $transaction_type,
+                    ":transaction_type" => $transaction_type,
                     ":memo" => $memo,
-                    "total" => $total
+                    ":total" => $total
                 ]);
             }
         } else {
             $e = $stmt->errorInfo();
+            //echo var_dump($e);
             flash("Something went wrong, Please try again");
         }
     } else {

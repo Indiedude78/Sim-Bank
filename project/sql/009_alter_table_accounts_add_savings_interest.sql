@@ -1,3 +1,3 @@
 ALTER TABLE Accounts
-    ADD COLUMN apy INT default null,
-    ADD COLUMN total_years UNSIGNED DECIMAL(10, 2) default 0.00;
+    ADD COLUMN apy DECIMAL(12, 2) default null,
+    ADD COLUMN total_years INT default null;
