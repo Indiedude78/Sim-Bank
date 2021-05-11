@@ -12,7 +12,7 @@ $src_acc_result = [];
 $dest_acc_result = [];
 if (isset($user_id)) {
     $db = getDB();
-    $stmt = $db->prepare("SELECT account_number FROM Accounts where user_id = :user_id");
+    $stmt = $db->prepare("SELECT account_number FROM Accounts where user_id = :user_id and closed = 0 and frozen = 0 AND account_type != 'Loan'");
     $r = $stmt->execute([
         ":user_id" => $user_id
     ]);

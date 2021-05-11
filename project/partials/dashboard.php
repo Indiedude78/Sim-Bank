@@ -14,6 +14,7 @@ if (!is_logged_in()) {
         <li><a href="test_transfer_funds.php">Transfer</a></li>
         <li><a href="test_ext_transfer_funds.php">External Transfer</a></li>
         <li><a href="test_loan_account.php">Loan</a></li>
+        <li><a href="test_close_account.php">Close Account</a></li>
 
     </ul>
 </div>

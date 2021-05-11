@@ -34,14 +34,14 @@ if (isset($_GET["search"])) {
     $db = getDB();
     if (isset($_GET["account_type"]) && !isset($_GET["account_number"])) {
         $query_acc = $_GET["account_type"];
-        $stmt = $db->prepare("SELECT * FROM Accounts WHERE user_id = :id and account_type = :acc_type LIMIT 5");
+        $stmt = $db->prepare("SELECT * FROM Accounts WHERE user_id = :id and account_type = :acc_type and closed = 0 AND account_type != 'Loan'");
         $r = $stmt->execute([
             ":acc_type" => $query_acc,
             ":id" => $user_id
         ]);
     } elseif (isset($_GET["account_number"]) && ($_GET["account_type"]) == "None") {
         $query_number = $_GET["account_number"];
-        $stmt = $db->prepare("SELECT * FROM Accounts WHERE user_id = :id and account_number like :acc_num LIMIT 5");
+        $stmt = $db->prepare("SELECT * FROM Accounts WHERE user_id = :id and account_number like :acc_num and closed = 0 AND account_type != 'Loan'");
         $r = $stmt->execute([
             ":acc_num" => "%$query_number%",
             ":id" => $user_id
@@ -49,7 +49,7 @@ if (isset($_GET["search"])) {
     } elseif (isset($_GET["account_number"]) && isset($_GET["account_type"])) {
         $query_acc = $_GET["account_type"];
         $query_number = $_GET["account_number"];
-        $stmt = $db->prepare("SELECT * FROM Accounts WHERE user_id = :id and account_number like :acc_num and account_type = :acc_type LIMIT 5");
+        $stmt = $db->prepare("SELECT * FROM Accounts WHERE user_id = :id and account_number like :acc_num and account_type = :acc_type and closed = 0 AND account_type != 'Loan'");
         $r = $stmt->execute([
             ":acc_num" => "%$query_number%",
             ":acc_type" => $query_acc,

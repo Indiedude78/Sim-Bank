@@ -10,7 +10,7 @@ require_once(__DIR__ . "/partials/dashboard.php");
 $user_id = get_id();
 if (isset($user_id)) {
     $db = getDB();
-    $stmt = $db->prepare("SELECT account_number, account_type FROM Accounts WHERE user_id = :user_id");
+    $stmt = $db->prepare("SELECT account_number, account_type FROM Accounts WHERE user_id = :user_id and closed = 0 and frozen = 0 AND account_type != 'Loan'");
     $r = $stmt->execute([":user_id" => $user_id]);
     $e = $stmt->errorInfo();
     if ($e[0] != "00000") {

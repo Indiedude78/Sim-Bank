@@ -13,7 +13,7 @@ $user_id = get_id();
 $result = [];
 if (isset($user_id)) {
     $db = getDB();
-    $stmt = $db->prepare("SELECT account_number FROM Accounts WHERE user_id = :user_id AND account_type != 'Loan'");
+    $stmt = $db->prepare("SELECT account_number FROM Accounts WHERE user_id = :user_id AND account_type != 'Loan' AND closed = 0 AND frozen = 0");
     $r = $stmt->execute([":user_id" => $user_id]);
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
@@ -39,3 +39,6 @@ if (isset($user_id)) {
     <?php endif; ?>
     <input type="submit" id="submit" name="submit" value="Submit" />
 </form>
+
+
+<?php require(__DIR__ . "/partials/flash.php"); ?>
