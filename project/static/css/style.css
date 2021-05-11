@@ -5,9 +5,6 @@ body {
     background-image: linear-gradient(to bottom right, #f3fff1d8, #73f5864a );
 }
 
-h2 {
-    position: fixed;
-}
 
 nav#nav {
     width: 100%;
@@ -19,6 +16,7 @@ nav#nav {
 ul.nav {
     list-style-type: none;
     margin: unset;
+    margin-left: -22px;
 }
 
 .nav > li {
@@ -31,7 +29,7 @@ ul.nav {
     text-align: center;
     padding: 14px;
     text-decoration: none;
-    font-size: 1.5em;
+    font-size: 1.3em;
 }
 
 .nav > li a:hover {

@@ -7,7 +7,7 @@ require_once(__DIR__ . "/partials/dashboard.php");
 ?>
 
 <?php
-$transaction_types = array("deposit", "withdraw", "transfer", "ext-transfer", "loan-deposit");
+$transaction_types = array("deposit", "withdraw", "transfer");
 
 ?>
 <form class="user-reg" id="user-reg" method="POST">
