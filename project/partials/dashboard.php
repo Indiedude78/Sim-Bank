@@ -13,7 +13,7 @@ if (!is_logged_in()) {
         <li><a href="test_withdraw_account.php">Withdraw</a></li>
         <li><a href="test_transfer_funds.php">Transfer</a></li>
         <li><a href="test_ext_transfer_funds.php">External Transfer</a></li>
-        <li><a href="profile.php">Profile</a></li>
+        <li><a href="test_loan_account.php">Loan</a></li>
 
     </ul>
 </div>

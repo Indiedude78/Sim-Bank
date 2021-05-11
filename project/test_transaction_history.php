@@ -51,7 +51,7 @@ if (isset($_GET["id"]) && $_GET["id"] != 1) {
     $offset = ($page - 1) * $perPage;
 
     if (!isset($_POST["submit"])) {
-        $stmt = $db->prepare("SELECT Accounts.account_number, Accounts.account_type, balance_change, transaction_type, memo, transaction_time, expected_total, Accounts.balance FROM Transactions JOIN Accounts ON Transactions.account_source = Accounts.id WHERE Accounts.id = :id and Accounts.user_id = :user_id LIMIT :offset, :per_page");
+        $stmt = $db->prepare("SELECT Accounts.account_number, Accounts.account_type, Accounts.apy, balance_change, transaction_type, memo, transaction_time, expected_total, Accounts.balance FROM Transactions JOIN Accounts ON Transactions.account_source = Accounts.id WHERE Accounts.id = :id and Accounts.user_id = :user_id LIMIT :offset, :per_page");
         $r = $stmt->execute([
             ":id" => $acc_id,
             ":user_id" => $user_id,
@@ -71,7 +71,7 @@ if (isset($_GET["id"]) && $_GET["id"] != 1) {
         if (isset($_POST["transaction_type"]) && $_POST["start_date"] == null) {
             //echo "This is being run!!";
             $transaction_type = $_POST["transaction_type"];
-            $stmt = $db->prepare("SELECT Accounts.account_number, Accounts.account_type, balance_change, transaction_type, memo, transaction_time, expected_total, Accounts.balance FROM Transactions JOIN Accounts ON Transactions.account_source = Accounts.id WHERE Accounts.id = :id and Accounts.user_id = :user_id and transaction_type = :transaction_type LIMIT :offset, :per_page");
+            $stmt = $db->prepare("SELECT Accounts.account_number, Accounts.account_type, Accounts.apy, balance_change, transaction_type, memo, transaction_time, expected_total, Accounts.balance FROM Transactions JOIN Accounts ON Transactions.account_source = Accounts.id WHERE Accounts.id = :id and Accounts.user_id = :user_id and transaction_type = :transaction_type LIMIT :offset, :per_page");
             $r = $stmt->execute([
                 ":id" => $acc_id,
                 ":user_id" => $user_id,
@@ -94,7 +94,7 @@ if (isset($_GET["id"]) && $_GET["id"] != 1) {
                 $end_date = get_todays_date('America/New_York');
             }
             // echo $start_date . "<br>" . $end_date;
-            $stmt = $db->prepare("SELECT Accounts.account_number, Accounts.account_type, balance_change, transaction_type, memo, transaction_time, expected_total, Accounts.balance FROM Transactions JOIN Accounts ON Transactions.account_source = Accounts.id WHERE Accounts.id = :id and Accounts.user_id = :user_id and transaction_type = :transaction_type and transaction_time BETWEEN :startDate and :endDate LIMIT :offset, :per_page");
+            $stmt = $db->prepare("SELECT Accounts.account_number, Accounts.account_type, Accounts.apy, balance_change, transaction_type, memo, transaction_time, expected_total, Accounts.balance FROM Transactions JOIN Accounts ON Transactions.account_source = Accounts.id WHERE Accounts.id = :id and Accounts.user_id = :user_id and transaction_type = :transaction_type and transaction_time BETWEEN :startDate and :endDate LIMIT :offset, :per_page");
             $r = $stmt->execute([
                 ":id" => $acc_id,
                 ":user_id" => $user_id,
@@ -110,7 +110,7 @@ if (isset($_GET["id"]) && $_GET["id"] != 1) {
             }
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         } else {
-            $stmt = $db->prepare("SELECT Accounts.account_number, Accounts.account_type, balance_change, transaction_type, memo, transaction_time, expected_total, Accounts.balance FROM Transactions JOIN Accounts ON Transactions.account_source = Accounts.id WHERE Accounts.id = :id and Accounts.user_id = :user_id LIMIT :offset, :per_page");
+            $stmt = $db->prepare("SELECT Accounts.account_number, Accounts.account_type, Accounts.apy, balance_change, transaction_type, memo, transaction_time, expected_total, Accounts.balance FROM Transactions JOIN Accounts ON Transactions.account_source = Accounts.id WHERE Accounts.id = :id and Accounts.user_id = :user_id LIMIT :offset, :per_page");
             $r = $stmt->execute([
                 ":id" => $acc_id,
                 ":user_id" => $user_id,
@@ -122,6 +122,7 @@ if (isset($_GET["id"]) && $_GET["id"] != 1) {
                 flash("Something went wrong");
             }
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            echo var_dump($result);
         }
     }
 } else {
@@ -133,6 +134,9 @@ if (isset($_GET["id"]) && $_GET["id"] != 1) {
     <div class="transaction-information">
         <h3>Account Number: <?php safer_echo($result[0]["account_number"]) ?></h3>
         <h4>Account Type: <?php safer_echo($result[0]["account_type"]) ?></h4>
+        <?php if ($result[0]["account_type"] == "Saving") : ?>
+            <h4>APY: <?php safer_echo($result[0]["apy"]); ?> %</h4>
+        <?php endif; ?>
         <table>
             <thead>
                 <tr>
