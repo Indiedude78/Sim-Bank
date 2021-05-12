@@ -31,7 +31,7 @@ if (isset($_POST["login"])) { //checl to see if form is set
     if ($isValid) {
         $db = getDB(); //get DB if validation is successful
         if (isset($db)) {
-            $stmt = $db->prepare("SELECT * from Users WHERE email = :email OR username = :email"); //sanitize data using placeholders
+            $stmt = $db->prepare("SELECT * from Users WHERE email = :email OR username = :email AND `disabled` = 0"); //sanitize data using placeholders
 
             $params = array(":email" => $email); //map email to its variable
             $r = $stmt->execute($params);
