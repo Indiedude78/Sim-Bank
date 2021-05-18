@@ -126,6 +126,56 @@ input[type=radio] {
 input[type=submit]:hover {
     background-color:#01ff56;
 }
+#fetched-users {
+    display: inline;
+}
+
+#users_table {
+    width: 100%;
+    margin-bottom: 100px;
+}
+
+.table_heads {
+    border-bottom-width: 7px;
+    border-bottom-style: solid;
+}
+
+#add_user {
+    color: #000000;
+    font-size: large;
+    padding: 14px 20px;
+    margin-top: 25px;
+    float: right;
+    /* margin: 8px; */
+    border: 5px;
+    border-color: #16ff164d;
+    border-radius: 12px;
+    border-width: medium;
+    cursor: pointer;
+    background-image: linear-gradient(
+359deg
+, #ffffff, #a4ffa77a);
+}
+
+#form_add_user {
+    border-radius: 6px;
+    float: left;
+    position: static;
+    /* top: 20%; */
+    width: fit-content;
+    /* margin-right: 100%; */
+    margin-top: 90px;
+    margin-left: 0.5cm;
+    padding: 25;
+    font-size: 0.8em;
+    background-image: linear-gradient( 
+177deg
+ , #00ff0d, #9bff8894);
+}
+
+#add_user:hover {
+    background-color:#01ff56;
+}
 
 div#flash{
     display: block;
