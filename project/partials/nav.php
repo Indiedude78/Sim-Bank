@@ -14,6 +14,7 @@ require_once(__DIR__ . "/../lib/helpers.php");
             <li><a href="profile.php">Profile</a></li>
             <?php if (has_role("Admin")) : ?>
                 <li><a href="test_admin_search.php">Admin Search</a></li>
+                <li><a href="test_admin_list_users.php">Admin List</a></li>
             <?php endif; ?>
             <li><a href="logout.php">Logout</a></li>
         <?php endif; ?>

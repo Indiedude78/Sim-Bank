@@ -25,3 +25,6 @@ $user_id = get_id();
     <input type="number" id="acc_num" name="acc_num" minlength="12" placeholder="Enter account number" required />
     <input type="submit" name="search" value="Search" />
 </form>
+
+
+<?php require(__DIR__ . "/partials/flash.php"); ?>
