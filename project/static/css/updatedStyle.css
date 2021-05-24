@@ -1,5 +1,12 @@
+/*font-family: 'Roboto', sans-serif;*/
+html {
+    scroll-behavior: smooth;
+}
+
 #nav-main {
     background-color: #231651;
+    position: sticky;
+    top: 0;
 }
 
 ul.nav {
@@ -8,6 +15,16 @@ ul.nav {
 
 div#nav-list {
     display: flex;
+    width: fit-content;
+}
+
+div#nav-user {
+    width: fit-content;
+    height: fit-content;
+    float: right;
+    position: relative;
+    bottom: 70;
+    right: 30;
 }
 
 div#nav-list > li {
@@ -15,29 +32,24 @@ div#nav-list > li {
     margin-right: 20px;
 }
 
-div#nav-list > li:hover {
-    background-color: #FBFEF9;
-    border-radius: 5px;
-}
-
-div#nav-list a:hover{
-    color: #231651;
+div#nav-list > li:hover a:hover {
+    border-bottom: #FBFEF9 double 2mm;
 }
 
 div#nav-list > li > a{
     text-decoration: none;
     text-align: center;
     color: #FBFEF9;
-    font-size: 1.8em;
+    font-size: 1.2em;
+    font-family: 'Kanit', sans-serif;
 }
 
 
 div#image-slider {
-    width: 720px;
-    height: 400px;
+    width: 1500px;
+    height: 700px;
     overflow: hidden;
     margin: auto;
-    background-color: #3185FC;
 }
 
 #image-slider .slides {
@@ -45,19 +57,221 @@ div#image-slider {
     padding: 0;
     display: block;
     width: 6000px;
-    height: 400px;
+    height: 700px;
 }
 
 #image-slider .image {
-    width: 720px;
-    height: 400px;
+    width: 1500px;
+    height: 700px;
     list-style-type: none;
     float: left;
 
 }
 
 #image-slider .image > img{
-    width: 720px;
-    height: 400px;
+    width: 1500px;
+    height: 700px;
+    opacity: 0.5;
+}
 
+div#welcome-text {
+    position: relative;
+    bottom: 700px;
+    left: 20px;    
+    color: #231651;
+    font-size: 1.5em;
+    background-color: #D57A66;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+div#welcome-text a {
+    text-decoration: none;
+    color: #231651;
+}
+
+div#welcome-text a:hover {
+    text-decoration: none;
+    color: #FBFEF9;
+}
+
+h2#introduction-header {
+    width: 40%;
+    float: left;
+    background-color: #D57A66;
+    border-radius: 5px;
+}
+
+h2#login-header {
+    width: 30%;
+    float: right;
+    background-color: #D57A66;
+    border-radius: 5px;
+}
+
+div.form-container {
+    width: 35%;
+    margin: 80px auto;
+
+}
+
+form#user-registration h3 {
+    font-size: xx-large;
+    text-align: center;
+}
+
+form#user-registration {
+    width: auto;
+    height: auto;
+    margin: 0px 25px;
+    padding-bottom: 25px;
+    padding: 10px;
+    border: black solid 3px;
+    border-radius: 5px;
+    background-color: #c9c9c9bb;
+    box-shadow: 20px 20px 10px grey;
+}
+
+form#user-registration label{
+    font-size: 1.2em;
+}
+
+form#user-registration *{
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+form#user-registration input[type=submit]{
+    margin-top: 15px;
+    background-color: #D57A66;
+    cursor: pointer;
+}
+
+form#user-registration input[type=submit]:hover{
+    background-color: #FBFEF9;
+}
+
+div.side-bar {
+    position: fixed;
+}
+
+div.dashboard-container {
+    width: fit-content;
+    height: fit-content;
+    float: left;
+    background-color: #231651;
+    border-radius: 15px;
+    z-index: 5;
+}
+
+div.dashboard-container ul {
+    font-size: 1.5em;
+    list-style: none;
+    padding: 10px;
+}
+
+div.dashboard-container ul > *{
+    padding: 10px;
+    text-align: center;
+}
+
+div.dashboard-container ul a{
+    color: #FBFEF9;
+    text-decoration: none;
+    font-family: 'Kanit', sans-serif;
+}
+
+div.dashboard-container h3 {
+    color: #FBFEF9;
+    text-align: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    border-bottom: solid #FBFEF9 1mm;
+    font-size: 1.5em;
+    padding: 20px;
+    margin-top: unset;
+}
+
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    vertical-align: middle;
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+
+button#side-bar-button {
+    background-color: #FBFEF9;
+    border-radius: 25px;
+    color: #231651;
+    width: 100%;
+}
+
+button#side-bar-button:hover {
+    background-color: #231651;
+    color: #FBFEF9;
+}
+
+div#side-icon-container {
+    width: 100px;
+    height: fit-content;
+    border-radius: 25px;
+    position: relative;
+    margin: auto;
+    bottom: 10;
+}
+
+form#profile-form {
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    background-color: #c5c4c4b2;
+    padding: 5px 15px;
+    border-radius: 5px;
+}
+
+form#profile-form > * {
+    padding: 10px;
+    border-radius: 10px;
+}
+
+form#profile-form > label {
+    font-size: 1.1em;
+}
+
+form#profile-form > input[type="submit"] {
+    margin: 15px 0px;
+}
+
+form#profile-form > input[type="submit"]:hover {
+    background-color: #D57A66;
+}
+
+form#profile-form > input:read-only {
+    cursor: not-allowed;
+    font-style: oblique;
+}
+
+div.form-container > h3 {
+    text-align: center;
+    font-size: 1.5em;
 }

@@ -1,6 +1,6 @@
 const pw = document.getElementById("p1");
 const userName = document.getElementById("username");
-const form = document.getElementById("user-reg");
+const form = document.getElementById("user-registration");
 const errorEle = document.getElementById("error-msg");
 
 form.addEventListener('submit', (e) => {

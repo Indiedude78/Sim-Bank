@@ -1,3 +1,7 @@
+<head>
+    <title>Simulation Bank: Home</title>
+</head>
+
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
 
 <?php if (get_first_name() == null && get_last_name() == null) {
@@ -13,3 +17,5 @@ if (!is_logged_in()) { //If user is not logged in, the can login from the home p
 }
 ?>
 <?php require(__DIR__ . "/partials/flash.php"); ?>
+
+
