@@ -1,5 +1,9 @@
+<head>
+    <title>Simulation Bank: Registration</title>
+</head>
 
-<?php require_once(__DIR__ . "/partials/nav.php"); //Include Navigation bar?>
+<?php require_once(__DIR__ . "/partials/nav.php"); //Include Navigation bar
+?>
 
 <?php
 //check to see if the form is set
@@ -27,20 +31,18 @@ if (isset($_POST["register"])) {
     $isValid = true;
     //If passwords match, continue
     if ($password != $confirm) {
-       flash("Passwords don't match");
-       $isValid = false;
-    }
-    else {
-
+        flash("Passwords don't match");
+        $isValid = false;
+    } else {
     }
     //If a field is not set, fail validation
     if (!isset($email) || !isset($password) || !isset($confirm) || !isset($username)) {
         $isValid = false;
     }
-    
+
     if ($isValid) {
         $hash = password_hash($password, PASSWORD_BCRYPT); //Encrypt password
-        
+
         $db = getDB(); //get DB
         if (isset($db)) {
             //Use placeholders to sanitize data
@@ -54,37 +56,44 @@ if (isset($_POST["register"])) {
             if ($e[0] == "00000") { //If everything works
                 flash("You have successfully registered!");
                 header("Location: login.php"); //Wait 2 seconds and redirect to login page and kill script
-            }
-            else {
+            } else {
                 if ($e[0] == "23000") { //Registered email or username
                     flash("Email or username exists");
-                }
-                else {
+                } else {
                     flash("Something went wrong!");
                 }
-                
             }
         }
-    }
-    else {
+    } else {
         flash("There was a validation issue");
     }
 }
 ?>
 <!--User registration form -->
-<form id="user-reg" class="user-reg" method="POST">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" minlength="6" maxlength="60" value="<?php if (!isset($_POST["username"])) {echo '';} else {echo $_POST["username"];} ?>" required/>
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" value="<?php if (!isset($_POST["email"])) {echo '';} else {echo $_POST["email"];} ?>" required/>
-    <label for="p1">Password:</label>
-    <input type="password" id="p1" name="password" minlength="8" maxlength="60" required/>
-    <label for="p2">Confirm Password:</label>
-    <input type="password" id="p2" name="confirm" minlength="8" maxlength="60" required/>
-    <input type="submit" name="register" value="Register"/>
-    <!--Javascript error messages displayed-->
-    <?php flash('<p id="error-msg"></p>'); ?>
-</form>
+<div class="form-container">
+    <form id="user-registration" class="form" method="POST">
+        <h3>Register</h3>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" minlength="6" maxlength="60" value="<?php if (!isset($_POST["username"])) {
+                                                                                                    echo '';
+                                                                                                } else {
+                                                                                                    echo $_POST["username"];
+                                                                                                } ?>" required />
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" value="<?php if (!isset($_POST["email"])) {
+                                                                echo '';
+                                                            } else {
+                                                                echo $_POST["email"];
+                                                            } ?>" required />
+        <label for="p1">Password:</label>
+        <input type="password" id="p1" name="password" minlength="8" maxlength="60" required />
+        <label for="p2">Confirm Password:</label>
+        <input type="password" id="p2" name="confirm" minlength="8" maxlength="60" required />
+        <input type="submit" name="register" value="Register" />
+        <!--Javascript error messages displayed-->
+        <?php flash('<p id="error-msg"></p>'); ?>
+    </form>
+</div>
 <!--Include Javascript for client-side validation-->
-<script defer type="text/javascript" src="static/js/reg_valid.js"></script> 
+<script defer type="text/javascript" src="static/js/reg_valid.js"></script>
 <?php require(__DIR__ . "/partials/flash.php"); ?>

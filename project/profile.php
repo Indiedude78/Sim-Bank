@@ -121,27 +121,33 @@ if (isset($_POST["saved"])) {
 
 ?>
 
-<form id="user-reg" method="POST">
-    <label for="fname">First Name</label>
-    <input type="text" id="fname" name="fname" value="<?php safer_echo(get_first_name()); ?>" readonly />
-    <label for="lname">Last Name</label>
-    <input type="text" id="lname" name="lname" value="<?php safer_echo(get_last_name()); ?>" readonly />
-    <label for="email">Email</label>
-    <input type="email" name="email" value="<?php safer_echo(get_email()); ?>" />
-    <label for="username">Username</label>
-    <input type="text" maxlength="60" name="username" value="<?php safer_echo(get_username()); ?>" />
-    <label for="acc_private">Private</label>
-    <input type="radio" id="acc_private" name="acc_status" value="1" />
-    <label for="acc_public">Public</label>
-    <input type="radio" id="acc_public" name="acc_status" value="0" />
-    <!-- DO NOT PRELOAD PASSWORD-->
-    <label for="pw">Password</label>
-    <input type="password" name="p1" />
-    <label for="cpw">Confirm Password</label>
-    <input type="password" name="p2" />
-    <input type="submit" name="saved" value="Save Profile" />
-</form>
+<div class="form-container">
+    <h3>My Profile</h3>
+    <form id="profile-form" method="POST">
+        <label for="fname">First Name</label>
+        <input type="text" id="fname" name="fname" value="<?php safer_echo(get_first_name()); ?>" readonly />
+        <label for="lname">Last Name</label>
+        <input type="text" id="lname" name="lname" value="<?php safer_echo(get_last_name()); ?>" readonly />
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" value="<?php safer_echo(get_email()); ?>" readonly />
+        <label for="username">Username</label>
+        <input type="text" maxlength="60" id="username" name="username" value="<?php safer_echo(get_username()); ?>" />
+        <label for="acc_private">Private</label>
+        <input type="radio" id="acc_private" name="acc_status" value="1" />
+        <label for="acc_public">Public</label>
+        <input type="radio" id="acc_public" name="acc_status" value="0" />
+        <!-- DO NOT PRELOAD PASSWORD-->
+        <label for="pw">Password</label>
+        <input type="password" name="p1" />
+        <label for="cpw">Confirm Password</label>
+        <input type="password" name="p2" />
+        <input type="submit" name="saved" value="Save Profile" />
+    </form>
+</div>
+
 <?php require(__DIR__ . "/partials/flash.php"); ?>
+
+
 <script src="jquery/jquery.js"></script>
 <script>
     $(document).ready(function() {

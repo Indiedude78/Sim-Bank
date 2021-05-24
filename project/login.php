@@ -1,13 +1,21 @@
+<head>
+    <title>Simulation Bank: Login</title>
+</head>
+
 <!--Include navigation bar-->
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
 <!--User login form-->
-<form id="user-reg" method="POST">
-    <label for="user-login">Email or Username:</label>
-    <input type="text" id="email" name="user-login" />
-    <label for="p1">Password:</label>
-    <input type="password" id="p1" name="password" required />
-    <input type="submit" name="login" value="Login" />
-</form>
+<div class="form-container">
+
+    <form id="user-registration" class="form" method="POST">
+        <h3>Login</h3>
+        <label for="user-login">Email or Username:</label>
+        <input type="text" id="email" name="user-login" />
+        <label for="p1">Password:</label>
+        <input type="password" id="p1" name="password" required />
+        <input type="submit" name="login" value="Login" />
+    </form>
+</div>
 
 <?php
 if (isset($_POST["login"])) { //checl to see if form is set
