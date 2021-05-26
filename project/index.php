@@ -1,4 +1,5 @@
 <head>
+    <noscript>This site requires JavaScript to function</noscript>
     <title>Simulation Bank</title>
 </head>
 

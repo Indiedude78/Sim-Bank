@@ -12,22 +12,23 @@ require_once(__DIR__ . "/partials/dashboard.php");
 <?php
 $acc_type = array("Checking", "Saving");
 ?>
-
-<form class="user-reg" id="user-reg" method="GET">
-    <label for="account_number">Search Accounts</label>
-    <input type="number" id="account_number" name="account_number" placeholder="Account Number" min="0" minlength="4" maxlength="12" />
-    <label for="account_type">View Accounts</label>
-    <select id="account_type" name="account_type" placeholder="Account Type">
-        <option value="None">Choose Account Type</option>
-        <?php
-        foreach ($acc_type as $acc) {
-            echo "<option value='$acc'>$acc</option>";
-        }
-        ?>
-    </select>
-    <input type="submit" name="search" value="Search" />
-</form>
-
+<div class="form-container">
+    <h3>List Accounts</h3>
+    <form id="search-account-form" method="GET">
+        <label for="account_number">Search Accounts</label>
+        <input type="number" id="account_number" name="account_number" placeholder="Account Number" min="0" minlength="4" maxlength="12" />
+        <label for="account_type">View Accounts</label>
+        <select id="account_type" name="account_type" placeholder="Account Type">
+            <option value="None">Choose Account Type</option>
+            <?php
+            foreach ($acc_type as $acc) {
+                echo "<option value='$acc'>$acc</option>";
+            }
+            ?>
+        </select>
+        <input type="submit" name="search" value="Search" />
+    </form>
+</div>
 <?php
 if (isset($_GET["search"])) {
     $user_id = get_id();
@@ -65,22 +66,31 @@ if (isset($_GET["search"])) {
     }
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-
 ?>
-<?php if (isset($result)) : ?>
-    <div class="account-information">
-        <div>
-            <?php foreach ($result as $r) : ?>
-                <div id="account_type">
-                    <h3>Account Type:</h3>
-                    <h4><?php safer_echo($r["account_type"]); ?></h4>
-                </div>
-                <h5>Account Number:</h5>
-                <div id="account_number"><a href="test_transaction_history.php?id=<?php safer_echo($r["id"]) ?>"><?php safer_echo($r["account_number"]); ?></a></div>
-                <h5>Account Balance:</h5>
-                <div id="account_balance"><?php safer_echo($r["balance"]) ?></div>
-            <?php endforeach; ?>
-        </div>
-    </div>
-<?php endif; ?>
+
+<div id="account-result-container">
+    <?php if (isset($result)) : ?>
+        <table id="account-table">
+            <thead>
+                <tr>
+                    <th>Account Type</th>
+                    <th>Account Number</th>
+                    <th>Available Balance</th>
+                    <th>Detailed View</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($result as $r) : ?>
+                    <tr>
+                        <td><?php echo $r["account_type"]; ?></td>
+                        <td><?php echo $r["account_number"]; ?></td>
+                        <td><?php echo $r["balance"]; ?></td>
+                        <td><button onclick="location.href='test_transaction_history.php?id=<?php safer_echo($r['id']); ?>'">View</button></td>
+                    </tr>
+            </tbody>
+        <?php endforeach; ?>
+        </table>
+    <?php endif; ?>
+</div>
+
 <?php require(__DIR__ . "/partials/flash.php"); ?>
