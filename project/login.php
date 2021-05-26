@@ -6,7 +6,6 @@
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
 <!--User login form-->
 <div class="form-container">
-
     <form id="user-registration" class="form" method="POST">
         <h3>Login</h3>
         <label for="user-login">Email or Username:</label>

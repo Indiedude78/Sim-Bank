@@ -11,6 +11,9 @@ html {
 
 ul.nav {
     list-style-type: none;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
 }
 
 div#nav-list {
@@ -30,6 +33,7 @@ div#nav-user {
 div#nav-list > li {
     padding: 10px;
     margin-right: 20px;
+    justify-self: flex-end;
 }
 
 div#nav-list > li:hover a:hover {
@@ -274,4 +278,66 @@ form#profile-form > input:read-only {
 div.form-container > h3 {
     text-align: center;
     font-size: 1.5em;
+}
+
+form#create-account-form , form#search-account-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: auto;
+    height: fit-content;
+    margin: auto;
+    padding: 2%;
+    background-color: #c5c4c4b2;
+    border-radius: 10px;
+}
+
+form#create-account-form > *, div.hide > *, form#search-account-form > * {
+    border-radius: 10px;
+    padding: 10px;
+}
+
+form#create-account-form > input:read-only {
+    cursor: not-allowed;
+    font-style: oblique;
+}
+
+form#create-account-form > input[type=submit], form#search-account-form > input[type=submit] {
+    margin: 15px 0px;
+}
+
+form#create-account-form > input[type=submit]:hover, form#search-account-form > input[type=submit]:hover {
+    background-color: #D57A66;
+    cursor: pointer;
+}
+
+table#account-table {
+    margin: auto;
+    border: #231651 2px solid;
+    width: 100%;
+    background-color: #d57a66a9;
+}
+
+table#account-table tr > td ,table#account-table tr > th {
+    padding: 5px 25px;
+    margin: auto;
+    text-align: center;
+    vertical-align: middle;
+    border-right: black solid 1px;
+}
+
+table#account-table tr > th {
+    border-bottom: #D57A66 2px ridge;
+    font-size: large;
+}
+
+table#account-table button {
+    border-radius: 10px;
+    font-size: larger;
+}
+
+table#account-table button:hover {
+    background-color: #231651;
+    color: #FBFEF9;
+    cursor: pointer;
 }

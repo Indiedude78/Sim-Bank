@@ -13,27 +13,27 @@ $interest_rate = 5;
 //Find APY Formula
 
 ?>
-
-<form id="user-reg" class="user-reg" method="POST">
-    <label for="account_num">Account Number:</label>
-    <input type="number" id="account_num" name="account_num" maxlength="12" value="<?php echo set_account_num(12); ?>" required readonly />
-    <label for="account_type">Account Type:</label>
-    <select id="account_type" name="account_type" placeholder="Account Type" required>
-        <option disabled selected value="">Account Type</option>
-        <option value="Checking">Checking</option>
-        <option value="Saving">Saving</option>
-    </select>
-    <div class="hide">
-        <label>Interest Rate:</label>
-        <h5><?php echo $interest_rate . " %"; ?></h5>
-        <label for="compounding_time">Total Years:</label>
-        <input type="number" id="compounding_time" name="compounding_time" min=0 step="1" placeholder="Number of years" />
-    </div>
-    <label for="balance">Balance:</label>
-    <input type="number" id="balance" name="balance" min="0" step="any" placeholder="Deposit Amount" />
-    <input type="submit" name="save" value="Create Account" />
-</form>
-
+<div class="form-container">
+    <h3>Open New Account</h3>
+    <form id="create-account-form" method="POST">
+        <label for="account_num">Account Number:</label>
+        <input type="number" id="account_num" name="account_num" maxlength="12" value="<?php echo set_account_num(12); ?>" required readonly />
+        <label for="account_type">Account Type:</label>
+        <select id="account_type" name="account_type" placeholder="Account Type" required>
+            <option disabled selected value="">Account Type</option>
+            <option value="Checking">Checking</option>
+            <option value="Saving">Saving</option>
+        </select>
+        <div class="hide">
+            <label>Interest Rate: <?php echo $interest_rate . " %"; ?></label><br><br>
+            <label for="compounding_time">Total Years:</label>
+            <input type="number" id="compounding_time" name="compounding_time" min=0 step="1" placeholder="Number of years" />
+        </div>
+        <label for="balance">Balance:</label>
+        <input type="number" id="balance" name="balance" min="0" step="any" placeholder="Deposit Amount" />
+        <input type="submit" name="save" value="Create Account" />
+    </form>
+</div>
 <?php
 
 if (isset($_POST["save"])) {
