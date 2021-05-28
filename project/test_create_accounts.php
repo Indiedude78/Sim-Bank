@@ -147,3 +147,5 @@ if (isset($_POST["save"])) {
         });
     });
 </script>
+
+<script src="static/js/form_animation.js"></script>

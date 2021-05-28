@@ -37,7 +37,7 @@ div#nav-list > li {
 }
 
 div#nav-list > li:hover a:hover {
-    border-bottom: #FBFEF9 double 2mm;
+    border-bottom: #FBFEF9 solid 3px;
 }
 
 div#nav-list > li > a{
@@ -113,9 +113,14 @@ h2#login-header {
 }
 
 div.form-container {
-    width: 35%;
+    width: fit-content;
     margin: 80px auto;
+    display: none;
+}
 
+div.form-container > h3 {
+    text-align: center;
+    font-size: 1.5em;
 }
 
 form#user-registration h3 {
@@ -124,7 +129,7 @@ form#user-registration h3 {
 }
 
 form#user-registration {
-    width: auto;
+    width: 600;
     height: auto;
     margin: 0px 25px;
     padding-bottom: 25px;
@@ -148,12 +153,14 @@ form#user-registration *{
 
 form#user-registration input[type=submit]{
     margin-top: 15px;
-    background-color: #D57A66;
+    background-color: #231651;
+    color: #FBFEF9;
     cursor: pointer;
 }
 
 form#user-registration input[type=submit]:hover{
     background-color: #FBFEF9;
+    color: #231651;
 }
 
 div.side-bar {
@@ -251,6 +258,7 @@ form#profile-form {
     background-color: #c5c4c4b2;
     padding: 5px 15px;
     border-radius: 5px;
+    width: 600;
 }
 
 form#profile-form > * {
@@ -275,16 +283,13 @@ form#profile-form > input:read-only {
     font-style: oblique;
 }
 
-div.form-container > h3 {
-    text-align: center;
-    font-size: 1.5em;
-}
+
 
 form#create-account-form , form#search-account-form {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: auto;
+    width: 600;
     height: fit-content;
     margin: auto;
     padding: 2%;
@@ -340,4 +345,100 @@ table#account-table button:hover {
     background-color: #231651;
     color: #FBFEF9;
     cursor: pointer;
+}
+
+form#filter-form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: auto;
+    background-color: #bec0bd;
+    border-radius: 4px;
+}
+
+form#filter-form > *{
+    padding: 10px;
+    margin: 10px
+}
+
+form#filter-form > label{
+    font-size: 1.3em;
+}
+
+form#filter-form > input, form#filter-form > select {
+    border-radius: 20px;
+}
+
+form#filter-form > input[type="submit"] {
+    color: #ffffff;
+    background-color: #231651;
+    padding: 10px 20px;
+}
+
+form#filter-form > input[type="submit"]:hover {
+    color: #231651;
+    background-color: #ffffff;
+    cursor: pointer;
+}
+div.transaction-information {
+    width: 80%;
+    margin: auto;
+}
+
+div#account-information {
+    text-align: center;
+    font-size: large;
+    padding-bottom: 15px;
+    border-bottom: black 2px solid;
+}
+
+div#transaction-table {
+    background-color: #d57a66a9;
+    padding: 20px;
+    margin: 15px auto;
+}
+
+div#transaction-table > table {
+    width: 100%;
+}
+
+div#transaction-table > table > thead > tr > th{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-align: center;
+    border-bottom: black 3px double;
+    border-right: black 1px solid;
+}
+
+div#transaction-table > table tbody > tr > td{
+    font-family: 'Kanit', sans-serif;
+    text-align: center;
+    border-right: black 1px solid;
+}
+
+div#transaction-table > table > thead > tr > th:last-of-type, div#transaction-table > table tbody > tr > td:last-of-type{
+    border-right: unset;
+}
+
+td#total {
+    text-align: center;
+    padding-top: 20px;
+    font-size: 2em;
+    font-family: 'Kanit', sans-serif;
+    border-top: black 5px groove;
+}
+
+div.pagination-div {
+    margin: auto;
+    width: fit-content;
+}
+
+ul.pagination {
+    list-style-type: none;
+    font-size: 1.2em;
+    text-align: center; 
+}
+
+ul.pagination a {
+    text-decoration: none;
 }
