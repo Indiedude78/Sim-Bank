@@ -1,5 +1,6 @@
 <head>
     <title>Simulation Bank: Login</title>
+    <noscript>This website requires JavaScript to work properly</noscript>
 </head>
 
 <!--Include navigation bar-->
@@ -84,3 +85,5 @@ SELECT Roles.name FROM Roles JOIN UserRoles on Roles.id = UserRoles.role_id wher
 }
 ?>
 <?php require(__DIR__ . "/partials/flash.php"); ?>
+<script src="jquery/jquery.js"></script>
+<script src="static/js/form_animation.js"></script>

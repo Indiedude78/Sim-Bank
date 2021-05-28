@@ -1,5 +1,6 @@
 <head>
     <title>Simulation Bank: Registration</title>
+    <noscript>This website requires JavaScript to work properly</noscript>
 </head>
 
 <?php require_once(__DIR__ . "/partials/nav.php"); //Include Navigation bar
@@ -97,3 +98,6 @@ if (isset($_POST["register"])) {
 <!--Include Javascript for client-side validation-->
 <script defer type="text/javascript" src="static/js/reg_valid.js"></script>
 <?php require(__DIR__ . "/partials/flash.php"); ?>
+
+<script src="jquery/jquery.js"></script>
+<script src="static/js/form_animation.js"></script>

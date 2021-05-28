@@ -94,3 +94,6 @@ if (isset($_GET["search"])) {
 </div>
 
 <?php require(__DIR__ . "/partials/flash.php"); ?>
+
+<script src="jquery/jquery.js"></script>
+<script src="static/js/form_animation.js"></script>
