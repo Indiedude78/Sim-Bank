@@ -307,11 +307,11 @@ form#create-account-form > input:read-only {
     font-style: oblique;
 }
 
-form#create-account-form > input[type=submit], form#search-account-form > input[type=submit] {
+form#create-account-form > input[type=submit], form#search-account-form > input[type=submit], form#deposit-form > input[type=submit]{
     margin: 15px 0px;
 }
 
-form#create-account-form > input[type=submit]:hover, form#search-account-form > input[type=submit]:hover {
+form#create-account-form > input[type=submit]:hover, form#search-account-form > input[type=submit], form#deposit-form > input[type=submit]:hover {
     background-color: #D57A66;
     cursor: pointer;
 }
@@ -444,10 +444,35 @@ ul.pagination a {
 }
 
 form#deposit-searched-form {
-    padding: 15px;
+    padding: 25px;
     margin: auto;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: stretch;
     background-color: #bec0bd96;
+    border-radius: 10px;
+}
+
+form#deposit-searched-form > label[for="acc_num"]{
+    align-self: center;
+    font-size: 1.5em;
+    border-bottom: #231651 1mm solid;
+    border-radius: unset;
+}
+
+form#deposit-searched-form > *, form#deposit-searched-form > div > *{
+    padding: 10px;
+    border-radius: 8px;
+    margin: 5px;
+}
+
+form#deposit-searched-form > input[type="submit"] {
+    margin-top: 15px;
+}
+
+form#deposit-searched-form > input[type="submit"]:hover {
+    background-color: #231651;
+    color: #bec0bd;
+    cursor: pointer;
 }

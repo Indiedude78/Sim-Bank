@@ -23,6 +23,7 @@ if (isset($user_id)) {
 ?>
 
 <div class="form-container">
+    <h3>Deposit Funds</h3>
     <form id="deposit-form" method="GET">
         <label for="account_number">Choose Account</label>
         <select id="account_number" name="account_number" placeholder="Deposit">
@@ -42,12 +43,14 @@ if (isset($user_id)) {
 <div class="form-container">
     <?php if (isset($_GET["search"]) && $_GET["account_number"] != "None") : ?>
         <form id="deposit-searched-form" method="GET">
-            <label for="acc_num"><?php safer_echo("Account: " . $_GET["account_number"]); ?></label><br><br>
+            <label for="acc_num"><?php safer_echo("Account: " . $_GET["account_number"]); ?></label><br>
             <input type="hidden" name="acc_num" id="acc_num" value="<?php safer_echo($_GET["account_number"]); ?>" />
             <label for="deposit_amount">Deposit Amount</label>
-            <input type="number" id="deposit_amount" name="deposit_amount" min="1" step="any" placeholder="Deposit Amount" required />
-            <label for="memo">Memo</label><br>
-            <textarea id="memo" name="memo" rows="4" cols="30" placeholder="Memo"></textarea>
+            <div>
+                <label>$ </label><input type="number" id="deposit_amount" name="deposit_amount" min="1" step="any" placeholder="Deposit Amount" required />
+            </div>
+            <label for="memo">Memo</label>
+            <textarea id="memo" name="memo" rows="4" cols="30" placeholder="Memo..."></textarea>
             <input type="submit" id="deposit" name="deposit" value="Deposit" />
         </form>
     <?php endif; ?>
