@@ -22,32 +22,36 @@ if (isset($user_id)) {
 }
 ?>
 
-<form class="user-reg" id="user-reg" method="GET">
-    <label for="account_number">Choose Account</label>
-    <select id="account_number" name="account_number" placeholder="Deposit">
-        <option value="None">Choose Account to Deposit</option>
-        <?php
-        if (isset($result)) {
-            foreach ($result as $r) {
-                echo "<option value=" . $r["account_number"] . ">" . $r["account_number"] . "</option>";
+<div class="form-container">
+    <form id="deposit-form" method="GET">
+        <label for="account_number">Choose Account</label>
+        <select id="account_number" name="account_number" placeholder="Deposit">
+            <option value="None">Choose Account to Deposit</option>
+            <?php
+            if (isset($result)) {
+                foreach ($result as $r) {
+                    echo "<option value=" . $r["account_number"] . ">" . $r["account_number"] . "</option>";
+                }
             }
-        }
-        ?>
-    </select>
-    <input type="submit" id="submit" name="search" value="Search" />
-</form>
-
-<?php if (isset($_GET["search"]) && $_GET["account_number"] != "None") : ?>
-    <form class="transaction-form" method="GET">
-        <label for="acc_num"><?php safer_echo("Account: " . $_GET["account_number"]); ?></label><br><br>
-        <input type="hidden" name="acc_num" id="acc_num" value="<?php safer_echo($_GET["account_number"]); ?>" />
-        <label for="deposit_amount">Deposit Amount</label>
-        <input type="number" id="deposit_amount" name="deposit_amount" min="1" step="any" placeholder="Deposit Amount" required />
-        <label for="memo">Memo</label><br>
-        <textarea id="memo" name="memo" rows="4" cols="30" placeholder="Memo"></textarea>
-        <input type="submit" id="deposit" name="deposit" value="Deposit" />
+            ?>
+        </select>
+        <input type="submit" id="submit" name="search" value="Search" />
     </form>
-<?php endif; ?>
+</div>
+
+<div class="form-container">
+    <?php if (isset($_GET["search"]) && $_GET["account_number"] != "None") : ?>
+        <form id="deposit-searched-form" method="GET">
+            <label for="acc_num"><?php safer_echo("Account: " . $_GET["account_number"]); ?></label><br><br>
+            <input type="hidden" name="acc_num" id="acc_num" value="<?php safer_echo($_GET["account_number"]); ?>" />
+            <label for="deposit_amount">Deposit Amount</label>
+            <input type="number" id="deposit_amount" name="deposit_amount" min="1" step="any" placeholder="Deposit Amount" required />
+            <label for="memo">Memo</label><br>
+            <textarea id="memo" name="memo" rows="4" cols="30" placeholder="Memo"></textarea>
+            <input type="submit" id="deposit" name="deposit" value="Deposit" />
+        </form>
+    <?php endif; ?>
+</div>
 
 <?php
 if (isset($_GET["deposit"])) {
@@ -122,3 +126,6 @@ if (isset($_GET["deposit"])) {
 ?>
 
 <?php require(__DIR__ . "/partials/flash.php"); ?>
+
+<script src="jquery/jquery.js"></script>
+<script src="static/js/form_animation.js"></script>

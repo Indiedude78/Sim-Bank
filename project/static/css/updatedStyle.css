@@ -285,7 +285,7 @@ form#profile-form > input:read-only {
 
 
 
-form#create-account-form , form#search-account-form {
+form#create-account-form , form#search-account-form, form#deposit-form {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -297,7 +297,7 @@ form#create-account-form , form#search-account-form {
     border-radius: 10px;
 }
 
-form#create-account-form > *, div.hide > *, form#search-account-form > * {
+form#create-account-form > *, div.hide > *, form#search-account-form > *, form#deposit-form > * {
     border-radius: 10px;
     padding: 10px;
 }
@@ -441,4 +441,13 @@ ul.pagination {
 
 ul.pagination a {
     text-decoration: none;
+}
+
+form#deposit-searched-form {
+    padding: 15px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    background-color: #bec0bd96;
 }
