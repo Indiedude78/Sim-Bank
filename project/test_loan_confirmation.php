@@ -41,36 +41,42 @@ if (isset($_POST["submit"])) {
 }
 ?>
 
-<?php if (isset($result1)) : ?>
-    <form id="user-reg" class="user-reg" method="POST">
-        <label for="account_number">Loan Deposit Account:</label>
-        <input type="number" id="account_number" name="account_number" value="<?php echo $result1["account_number"]; ?>" readonly />
-        <input type="hidden" name="account_id" value="<?php echo $result1["id"]; ?>" required />
-        <label for="account_type">Account Type:</label>
-        <input type="text" id="account_type" name="account_type" value="<?php echo $result1["account_type"] ?>" readonly />
-        <label for="account_balance">Current Balance:</label>
-        <input type="number" id="account_balance" name="account_balance" value="<?php echo $result1["balance"]; ?>" readonly />
-        <label for="prefilled_loan_acc_num">Loan Account Number:</label>
-        <input type="number" id="prefilled_loan_acc_num" name="prefilled_loan_acc_num" value="<?php echo $loan_acc_num; ?>" readonly />
-        <label for="prefilled_loan_amount">Total Loan Amount:</label>
-        <input type="number" id="prefilled_loan_amount" name="prefilled_loan_amount" value="<?php echo $loan_amount; ?>" readonly required />
-        <label for="prefilled_loan_period">Loan Period in Years:</label>
-        <input type="number" id="prefilled_loan_period" name="prefilled_loan_period" value="<?php echo $loan_period ?>" readonly required />
-        <label for="prefilled_interest">Fixed Interest Rate:</label>
-        <input type="number" id="prefilled_interest" name="prefilled_interest" value="<?php echo number_format($interest_rate, 2); ?>" required readonly />
-        <input type="hidden" name="interest_in_decimals" value="<?php echo $current_interest_rate; ?>" />
-        <label for="prefilled_total_interest_amount_show">Total Interest:</label>
-        <input id="prefilled_total_interest_amount_show" name="prefilled_total_interest_amount_show" value="<?php echo number_format($total_interest, 2); ?>" readonly />
-        <input type="hidden" name="prefilled_total_interest_amount" value="<?php echo $total_interest; ?>" />
-        <label for="prefilled_total_payment_show">Total Payment:</label>
-        <input id="prefilled_total_payment_show" name="prefilled_total_payment_show" value="<?php echo number_format($total_payment, 2); ?>" readonly />
-        <input type="hidden" name="prefilled_total_payment" value="<?php echo $total_payment; ?>" />
-        <label for="prefilled_monthly_payment_show">Fixed Monthly Payments:</label>
-        <input id="prefilled_monthly_payment_show" name="prefilled_monthly_payment_show" value="<?php echo number_format($total_payment_per_period, 2); ?>" readonly />
-        <input type="hidden" name="prefilled_monthly_payment" value="<?php echo $total_payment_per_period; ?>" />
-        <input type="submit" name="confirm" value="Confirm" />
-    </form>
-<?php endif; ?>
+<div class="form-container">
+    <?php if (isset($result1)) : ?>
+        <h3>Loan Confirmation</h3>
+        <form id="loan-confirmation-form" method="POST">
+            <div id="user-account-confirm">
+                <label for="account_number">Loan Deposit Account:</label>
+                <input type="number" id="account_number" name="account_number" value="<?php echo $result1["account_number"]; ?>" readonly />
+                <input type="hidden" name="account_id" value="<?php echo $result1["id"]; ?>" required />
+                <label for="account_type">Account Type:</label>
+                <input type="text" id="account_type" name="account_type" value="<?php echo $result1["account_type"] ?>" readonly />
+                <label for="account_balance">Current Balance:</label>
+                <input type="number" id="account_balance" name="account_balance" value="<?php echo $result1["balance"]; ?>" readonly />
+            </div>
+            <div id="loan-account-confirmation">
+                <label for="prefilled_loan_acc_num">Loan Account Number:</label>
+                <input type="number" id="prefilled_loan_acc_num" name="prefilled_loan_acc_num" value="<?php echo $loan_acc_num; ?>" readonly />
+                <label for="prefilled_loan_amount">Total Loan Amount:</label>
+                <input type="number" id="prefilled_loan_amount" name="prefilled_loan_amount" value="<?php echo $loan_amount; ?>" readonly required />
+                <label for="prefilled_loan_period">Loan Period in Years:</label>
+                <input type="number" id="prefilled_loan_period" name="prefilled_loan_period" value="<?php echo $loan_period ?>" readonly required />
+            </div>
+            <label for="prefilled_interest">Fixed Interest Rate: <?php echo number_format($interest_rate, 2); ?> %</label>
+            <input type="hidden" name="interest_in_decimals" value="<?php echo $current_interest_rate; ?>" required readonly />
+            <label for="prefilled_total_interest_amount_show">Total Interest:</label>
+            <input id="prefilled_total_interest_amount_show" name="prefilled_total_interest_amount_show" value="<?php echo number_format($total_interest, 2); ?>" readonly />
+            <input type="hidden" name="prefilled_total_interest_amount" value="<?php echo $total_interest; ?>" />
+            <label for="prefilled_total_payment_show">Total Payment:</label>
+            <input id="prefilled_total_payment_show" name="prefilled_total_payment_show" value="<?php echo number_format($total_payment, 2); ?>" readonly />
+            <input type="hidden" name="prefilled_total_payment" value="<?php echo $total_payment; ?>" />
+            <label for="prefilled_monthly_payment_show">Fixed Monthly Payments:</label>
+            <input id="prefilled_monthly_payment_show" name="prefilled_monthly_payment_show" value="<?php echo number_format($total_payment_per_period, 2); ?>" readonly />
+            <input type="hidden" name="prefilled_monthly_payment" value="<?php echo $total_payment_per_period; ?>" />
+            <input type="submit" name="confirm" value="Confirm" />
+        </form>
+    <?php endif; ?>
+</div>
 
 <?php
 if (isset($_POST["confirm"])) {
@@ -162,3 +168,6 @@ if (isset($_POST["confirm"])) {
 ?>
 
 <?php require(__DIR__ . "/partials/flash.php"); ?>
+
+<script src="jquery/jquery.js"></script>
+<script src="static/js/form_animation.js"></script>

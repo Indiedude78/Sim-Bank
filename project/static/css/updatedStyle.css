@@ -36,16 +36,19 @@ div#nav-list > li {
     justify-self: flex-end;
 }
 
-div#nav-list > li:hover a:hover {
-    border-bottom: #FBFEF9 solid 3px;
+div#nav-list a:hover {
+    border: 2px #D57A66 solid;
+    color: #D57A66;
 }
 
-div#nav-list > li > a{
+div#nav-list a{
     text-decoration: none;
     text-align: center;
+    justify-self: center;
     color: #FBFEF9;
     font-size: 1.2em;
     font-family: 'Kanit', sans-serif;
+    padding: 5px;
 }
 
 
@@ -165,21 +168,29 @@ form#user-registration input[type=submit]:hover{
 
 div.side-bar {
     position: fixed;
+    top: 10;
+    height: 100%;
 }
 
 div.dashboard-container {
     width: fit-content;
-    height: fit-content;
+    height: 100%;
     float: left;
-    background-color: #231651;
-    border-radius: 15px;
+    background-image: linear-gradient(to bottom, #231651, #391bb7);
     z-index: 5;
+    position: sticky;
+    top: 0;
 }
 
 div.dashboard-container ul {
     font-size: 1.5em;
     list-style: none;
     padding: 10px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-content: space-between;
 }
 
 div.dashboard-container ul > *{
@@ -191,6 +202,12 @@ div.dashboard-container ul a{
     color: #FBFEF9;
     text-decoration: none;
     font-family: 'Kanit', sans-serif;
+    padding: 15px;
+}
+
+div.dashboard-container ul a:hover{
+    color: #D57A66;
+    border: 2px solid;
 }
 
 div.dashboard-container h3 {
@@ -230,7 +247,6 @@ div.dashboard-container h3 {
 
 button#side-bar-button {
     background-color: #FBFEF9;
-    border-radius: 25px;
     color: #231651;
     width: 100%;
 }
@@ -241,12 +257,12 @@ button#side-bar-button:hover {
 }
 
 div#side-icon-container {
-    width: 100px;
+    width: fit-content;
     height: fit-content;
-    border-radius: 25px;
-    position: relative;
     margin: auto;
-    bottom: 10;
+    padding: 8px;
+    position: sticky;
+    left: 200;
 }
 
 form#profile-form {
@@ -274,18 +290,7 @@ form#profile-form > input[type="submit"] {
     margin: 15px 0px;
 }
 
-form#profile-form > input[type="submit"]:hover {
-    background-color: #D57A66;
-}
-
-form#profile-form > input:read-only {
-    cursor: not-allowed;
-    font-style: oblique;
-}
-
-
-
-form#create-account-form , form#search-account-form, form#deposit-form {
+form#create-account-form , form#search-account-form, form#deposit-form, form#withdraw-form, form#transfer-form, form#ext-transfer-form, form#loan-form, form#close-account-form {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -297,21 +302,39 @@ form#create-account-form , form#search-account-form, form#deposit-form {
     border-radius: 10px;
 }
 
-form#create-account-form > *, div.hide > *, form#search-account-form > *, form#deposit-form > * {
+form#create-account-form > *, div.hide > *, form#search-account-form > *, form#deposit-form > *, form#withdraw-form > *, form#transfer-form > *, form#ext-transfer-form > *, form#loan-form > *, form#close-account-form > * {
     border-radius: 10px;
     padding: 10px;
 }
 
-form#create-account-form > input:read-only {
+form#transfer-form > div#account-options {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+form#transfer-form > div#funds {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+}
+
+form#transfer-form > div#account-options > div > *, form#transfer-form > div#funds > *  {
+    padding: 10px;
+    border-radius: 10px;
+}
+
+form#create-account-form > input:read-only, form#searched-ext-transfer-form > *:read-only, form#profile-form > *:read-only, form#loan-confirmation-form div > *:read-only, form#loan-confirmation-form > *:read-only {
     cursor: not-allowed;
     font-style: oblique;
 }
 
-form#create-account-form > input[type=submit], form#search-account-form > input[type=submit], form#deposit-form > input[type=submit]{
+form#create-account-form > input[type=submit], form#search-account-form > input[type=submit], form#deposit-form > input[type=submit], form#withdraw-form > input[type=submit], form#transfer-form > input[type=submit], form#ext-transfer-form > input[type=submit], form#loan-form > input[type=submit], form#close-account-form > input[type=submit] {
     margin: 15px 0px;
 }
 
-form#create-account-form > input[type=submit]:hover, form#search-account-form > input[type=submit], form#deposit-form > input[type=submit]:hover {
+form#create-account-form > input[type=submit]:hover, form#search-account-form > input[type=submit]:hover, form#deposit-form > input[type=submit]:hover, form#withdraw-form > input[type=submit]:hover, form#profile-form > input[type="submit"]:hover, form#transfer-form > input[type=submit]:hover, form#ext-transfer-form > input[type=submit]:hover, form#loan-form > input[type=submit]:hover, form#close-account-form > input[type=submit]:hover {
     background-color: #D57A66;
     cursor: pointer;
 }
@@ -443,10 +466,9 @@ ul.pagination a {
     text-decoration: none;
 }
 
-form#deposit-searched-form {
+form#deposit-searched-form, form#withdraw-searched-form, form#searched-ext-transfer-form, form#loan-confirmation-form {
     padding: 25px;
     margin: auto;
-    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -454,24 +476,29 @@ form#deposit-searched-form {
     border-radius: 10px;
 }
 
-form#deposit-searched-form > label[for="acc_num"]{
+form#loan-confirmation-form div {
+    display: flex;
+    justify-content: space-between;
+}
+
+form#deposit-searched-form > label[for="acc_num"], form#withdraw-searched-form > label[for="acc_num"]{
     align-self: center;
     font-size: 1.5em;
     border-bottom: #231651 1mm solid;
     border-radius: unset;
 }
 
-form#deposit-searched-form > *, form#deposit-searched-form > div > *{
+form#deposit-searched-form > *, form#deposit-searched-form > div > *, form#withdraw-searched-form > *, form#withdraw-searched-form > div > *, form#searched-ext-transfer-form > *, form#loan-confirmation-form > *, form#loan-confirmation-form div > * {
     padding: 10px;
     border-radius: 8px;
     margin: 5px;
 }
 
-form#deposit-searched-form > input[type="submit"] {
+form#deposit-searched-form > input[type=submit], form#withdraw-searched-form >input[type=submit], form#searched-ext-transfer-form > input[type=submit], form#loan-confirmation-form > input[type=submit] {
     margin-top: 15px;
 }
 
-form#deposit-searched-form > input[type="submit"]:hover {
+form#deposit-searched-form > input[type="submit"]:hover, form#withdraw-searched-form >input[type=submit]:hover, form#searched-ext-transfer-form > input[type=submit]:hover, form#loan-confirmation-form > input[type=submit]:hover {
     background-color: #231651;
     color: #bec0bd;
     cursor: pointer;
