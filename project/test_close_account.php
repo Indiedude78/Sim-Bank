@@ -11,7 +11,7 @@ require_once(__DIR__ . "/partials/dashboard.php");
 $user_id = get_id();
 if (isset($user_id)) {
     $db = getDB();
-    $stmt = $db->prepare("SELECT account_number, account_type FROM Accounts where user_id = :user_id");
+    $stmt = $db->prepare("SELECT account_number, account_type FROM Accounts where user_id = :user_id AND closed != 1 AND account_type != 'Loan'");
     $r = $stmt->execute([
         ":user_id" => $user_id
     ]);
@@ -23,22 +23,26 @@ if (isset($user_id)) {
 }
 ?>
 
-<form class="user-reg" id="user-reg" method="POST">
-    <label for="account_number">Choose Account</label>
-    <select id="account_number" name="account_number" required>
-        <option disabled selected value="">Choose Account to Close</option>
-        <?php
-        if (isset($result)) {
-            foreach ($result as $r) {
-                if ($r["account_type"] != "Loan") {
-                    echo "<option value=" . $r["account_number"] . ">" . $r["account_number"] . "</option>";
+
+<div class="form-container">
+    <h3>Close Account</h3>
+    <form id="close-account-form" method="POST">
+        <label for="account_number">Choose Account</label>
+        <select id="account_number" name="account_number" required>
+            <option disabled selected value="">Choose Account to Close</option>
+            <?php
+            if (isset($result)) {
+                foreach ($result as $r) {
+                    if ($r["account_type"] != "Loan") {
+                        echo "<option value=" . $r["account_number"] . ">" . $r["account_number"] . "</option>";
+                    }
                 }
             }
-        }
-        ?>
-    </select>
-    <input type="submit" id="submit" name="search" value="Close" />
-</form>
+            ?>
+        </select>
+        <input type="submit" id="submit" name="search" value="Close" />
+    </form>
+</div>
 
 <?php
 if (isset($_POST["search"]) && isset($_POST["account_number"])) {
@@ -52,7 +56,7 @@ if (isset($_POST["search"]) && isset($_POST["account_number"])) {
     $acc_id = $result["id"];
     $acc_balance = $result["balance"];
     if ($acc_balance > 0) {
-        flash("You must empty all funds from account to close it");
+        flash("You must empty all funds from the account to close it");
     } else {
         $stmt = $db->prepare("UPDATE Accounts set closed = 1 WHERE id = :acc_id");
         $r1 = $stmt->execute([":acc_id" => $acc_id]);
@@ -67,3 +71,6 @@ if (isset($_POST["search"]) && isset($_POST["account_number"])) {
 
 
 <?php require(__DIR__ . "/partials/flash.php"); ?>
+
+<script src="jquery/jquery.js"></script>
+<script src="static/js/form_animation.js"></script>

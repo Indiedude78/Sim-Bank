@@ -8,7 +8,7 @@ if (!is_logged_in()) {
     <div id="side-icon-container">
         <button id="side-bar-button">
             <span class="material-icons">
-                expand_more
+                menu
             </span>
         </button>
     </div>

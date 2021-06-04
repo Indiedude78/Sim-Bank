@@ -1,3 +1,4 @@
+<noscript>Javascript is required for this website</noscript>
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
 
 <?php if (!is_logged_in()) {
@@ -22,35 +23,46 @@ if (isset($user_id)) {
 }
 ?>
 
-<form class="user-reg" id="user-reg" method="POST">
-    <label for="account_number_source">From:</label>
-    <select id="account_number_source" name="account_number_source" placeholder="Source Account" required>
-        <option value="" disabled selected>Choose Source Account</option>
-        <?php
-        if (isset($result)) {
-            foreach ($result as $r) {
-                echo "<option value=" . $r["account_number"] . ">" . $r["account_number"] . "</option>";
-            }
-        }
-        ?>
-    </select>
-    <label for="account_number_destination">To:</label>
-    <select id="account_number_destination" name="account_number_destination" placeholder="Destination Account" required>
-        <option value="" disabled selected>Choose Destination Account</option>
-        <?php
-        if (isset($result)) {
-            foreach ($result as $r) {
-                echo "<option value=" . $r["account_number"] . ">" . $r["account_number"] . "</option>";
-            }
-        }
-        ?>
-    </select>
-    <label for="amount">Transfer Amount:</label>
-    <input type="number" id="amount" name="amount" min="1" step="any" placeholder="Enter Amount" required />
-    <label for="memo">Memo:</label><br>
-    <textarea id="memo" name="memo" rows="4" cols="30" placeholder="Memo"></textarea>
-    <input type="submit" name="Submit" value="Transfer" />
-</form>
+<div class="form-container">
+    <h3>Tranfer Funds</h3>
+    <form id="transfer-form" method="POST">
+        <div id="account-options">
+            <div>
+                <label for="account_number_source">From:</label>
+                <select id="account_number_source" name="account_number_source" placeholder="Source Account" required>
+                    <option value="" disabled selected>Choose Source Account</option>
+                    <?php
+                    if (isset($result)) {
+                        foreach ($result as $r) {
+                            echo "<option value=" . $r["account_number"] . ">" . $r["account_number"] . "</option>";
+                        }
+                    }
+                    ?>
+                </select>
+            </div>
+            <div>
+                <label for="account_number_destination">To:</label>
+                <select id="account_number_destination" name="account_number_destination" placeholder="Destination Account" required>
+                    <option value="" disabled selected>Choose Destination Account</option>
+                    <?php
+                    if (isset($result)) {
+                        foreach ($result as $r) {
+                            echo "<option value=" . $r["account_number"] . ">" . $r["account_number"] . "</option>";
+                        }
+                    }
+                    ?>
+                </select>
+            </div>
+        </div>
+        <label for="amount">Transfer Amount:</label>
+        <div id="funds">
+            <label>$</label><input type="number" id="amount" name="amount" min="1" step="any" placeholder="Enter Amount" required />
+        </div>
+        <label for="memo">Memo:</label>
+        <textarea id="memo" name="memo" rows="4" cols="30" placeholder="Memo"></textarea>
+        <input type="submit" name="Submit" value="Transfer" />
+    </form>
+</div>
 
 <?php
 if (isset($_POST["Submit"])) {
@@ -128,3 +140,6 @@ if (isset($_POST["Submit"])) {
 ?>
 
 <?php require(__DIR__ . "/partials/flash.php"); ?>
+
+<script src="jquery/jquery.js"></script>
+<script src="static/js/form_animation.js"></script>

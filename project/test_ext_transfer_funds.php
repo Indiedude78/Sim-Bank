@@ -24,24 +24,27 @@ if (isset($user_id)) {
 }
 ?>
 
-<form class="user-reg" id="user-reg" method="POST">
-    <label for="src_acc_num">From:</label>
-    <select id="src_acc_num" name="src_acc_num" placeholder="Source Account" required>
-        <option value="" disabled selected>Choose Source Account</option>
-        <?php
-        if (isset($result)) {
-            foreach ($result as $r) {
-                echo "<option value=" . $r["account_number"] . ">" . $r["account_number"] . "</option>";
+<div class="form-container">
+    <h3>Send Funds</h3>
+    <form id="ext-transfer-form" method="POST">
+        <label for="src_acc_num">From:</label>
+        <select id="src_acc_num" name="src_acc_num" placeholder="Source Account" required>
+            <option value="" disabled selected>Choose Source Account</option>
+            <?php
+            if (isset($result)) {
+                foreach ($result as $r) {
+                    echo "<option value=" . $r["account_number"] . ">" . $r["account_number"] . "</option>";
+                }
             }
-        }
-        ?>
-    </select>
-    <label for="dest_acc_user">Search by Last Name:</label>
-    <input type="text" id="dest_acc_user" name="dest_acc_user" placeholder="Last Name" required />
-    <label for="dest_acc_num">Last 4 digits of Destination Account:</label>
-    <input type="number" id="dest_acc_num" name="dest_acc_num" placeholder="XXXX" pattern=".{4}" required title="4 characters only" />
-    <input type="submit" id="search" name="search" value="Search" />
-</form>
+            ?>
+        </select>
+        <label for="dest_acc_user">Search by Last Name:</label>
+        <input type="text" id="dest_acc_user" name="dest_acc_user" placeholder="Last Name" required />
+        <label for="dest_acc_num">Last 4 digits of Destination Account:</label>
+        <input type="number" id="dest_acc_num" name="dest_acc_num" placeholder="xxxx" pattern=".{4}" minlength="4" required title="4 characters only" />
+        <input type="submit" id="search" name="search" value="Search" />
+    </form>
+</div>
 
 <?php
 if (isset($_POST["search"])) {
@@ -58,22 +61,17 @@ if (isset($_POST["search"])) {
         $src_acc_result = $stmt->fetch(PDO::FETCH_ASSOC);
         //echo var_dump($src_acc_result);
 
-        $stmt = $db->prepare("SELECT id FROM Users WHERE lname = :lname");
-        $r = $stmt->execute([":lname" => $dest_user_lname]);
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($result) {
-            $dest_user_id = $result["id"];
-            $stmt = $db->prepare("SELECT Users.lname, Users.fname, Users.id, Users.is_private, Users.email, account_number, Accounts.id, account_type, balance FROM Accounts JOIN Users ON Accounts.user_id = Users.id AND Accounts.user_id = :user_id AND account_number LIKE :acc_num AND Accounts.id != '1' LIMIT 1");
-            $r = $stmt->execute([
-                ":user_id" => $dest_user_id,
-                ":acc_num" => "%$dest_acc_partial_num"
-            ]);
-            $dest_acc_result = $stmt->fetch(PDO::FETCH_ASSOC);
-            if (empty($dest_acc_result)) {
-                flash("No results found");
-            }
-        } else {
-            flash("No user with last name: $dest_user_lname found");
+        //$stmt = $db->prepare("SELECT id FROM Users WHERE lname = :lname");
+        //$r = $stmt->execute([":lname" => $dest_user_lname]);
+        //$result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt = $db->prepare("SELECT Users.lname, Users.fname, Users.id, Users.is_private, Users.email, account_number, Accounts.id, account_type, balance FROM Accounts JOIN Users ON Accounts.user_id = Users.id WHERE Users.lname = :last_name AND account_number LIKE :acc_num AND Accounts.id != '1' AND Users.disabled != '1' LIMIT 1");
+        $r = $stmt->execute([
+            ":last_name" => $dest_user_lname,
+            ":acc_num" => "%$dest_acc_partial_num"
+        ]);
+        $dest_acc_result = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (empty($dest_acc_result)) {
+            flash("No results found");
         }
     } else {
         flash("Please enter the last 4 digits of the account you wish to transfer to");
@@ -81,32 +79,33 @@ if (isset($_POST["search"])) {
 }
 ?>
 
-<?php if (isset($dest_acc_result) && $dest_acc_result) : ?>
-    <form class="transaction-form" method="POST">
-        <label for="src_acc_prefilled">Source Account:</label>
-        <input type="text" disabled readonly id="src_acc_prefilled" name="src_acc_prefilled" value="<?php safer_echo($src_acc_num); ?>" />
-        <label for="src_acc_balance_prefilled">Account Balance:</label>
-        <input type="number" readonly id="src_acc_balance_prefilled" name="src_acc_balance_prefilled" value="<?php safer_echo($src_acc_result["balance"]); ?>" />
-        <label for="dest_acc_prefilled">Destination Account:</label>
-        <input type="text" disabled readonly id="dest_acc_prefilled" name="dest_acc_prefilled" value="<?php safer_echo($dest_acc_result["account_number"]); ?>" />
-        <label for="dest_user_prefilled">Destination User:</label>
-        <input type="text" disabled readonly id="dest_user_prefilled" name="dest_user_prefilled" value="<?php safer_echo($dest_acc_result["fname"] . " " . $dest_acc_result["lname"]); ?>" />
-        <?php if ($dest_acc_result["is_private"] == 0) : ?>
-            <label for="dest_user_prefilled_email">Destination User Email:</label>
-            <input type="text" disabled readonly id="dest_user_prefilled_email" name="dest_user_prefilled_email" value="<?php safer_echo($dest_acc_result["email"]) ?>" />
-        <?php endif; ?>
-        <label for="amount">Transfer Amount:</label>
-        <input type="number" id="amount" name="amount" placeholder="00.00" min="1" step="any" required />
-        <label for="memo">Memo:</label><br>
-        <textarea id="memo" name="memo" rows="4" cols="30" placeholder="Memo"></textarea>
-        <input type="hidden" name="src_acc_id" value="<?php safer_echo($src_acc_result["id"]); ?>" />
-        <input type="hidden" name="dest_acc_id" value="<?php safer_echo($dest_acc_result["id"]); ?>" />
-        <input type="hidden" name="dest_acc_balance" value="<?php safer_echo($dest_acc_result["balance"]); ?>" />
-        <input type="submit" id="submit" name="transfer" value="Transfer" />
-    </form>
-<?php endif; ?>
-<?php //echo var_dump($dest_acc_result);
-?>
+<div class="form-container">
+    <?php if (isset($dest_acc_result) && $dest_acc_result) : ?>
+        <h3>Confirmation</h3>
+        <form id="searched-ext-transfer-form" method="POST">
+            <label for="src_acc_prefilled">Source Account:</label>
+            <input type="text" disabled readonly id="src_acc_prefilled" name="src_acc_prefilled" value="<?php safer_echo($src_acc_num); ?>" />
+            <label for="src_acc_balance_prefilled">Account Balance:</label>
+            <input type="number" disabled readonly id="src_acc_balance_prefilled" name="src_acc_balance_prefilled" value="<?php safer_echo($src_acc_result["balance"]); ?>" />
+            <label for="dest_acc_prefilled">Destination Account:</label>
+            <input type="text" disabled readonly id="dest_acc_prefilled" name="dest_acc_prefilled" value="<?php safer_echo($dest_acc_result["account_number"]); ?>" />
+            <label for="dest_user_prefilled">Destination User:</label>
+            <input type="text" disabled readonly id="dest_user_prefilled" name="dest_user_prefilled" value="<?php safer_echo($dest_acc_result["fname"] . " " . $dest_acc_result["lname"]); ?>" />
+            <?php if ($dest_acc_result["is_private"] == 0) : ?>
+                <label for="dest_user_prefilled_email">Destination User Email:</label>
+                <input type="text" disabled readonly id="dest_user_prefilled_email" name="dest_user_prefilled_email" value="<?php safer_echo($dest_acc_result["email"]) ?>" />
+            <?php endif; ?>
+            <label for="amount">Transfer Amount:</label>
+            <input type="number" id="amount" name="amount" placeholder="00.00" min="1" step="any" required />
+            <label for="memo">Memo:</label>
+            <textarea id="memo" name="memo" rows="4" cols="30" placeholder="Memo"></textarea>
+            <input type="hidden" name="src_acc_id" value="<?php safer_echo($src_acc_result["id"]); ?>" />
+            <input type="hidden" name="dest_acc_id" value="<?php safer_echo($dest_acc_result["id"]); ?>" />
+            <input type="hidden" name="dest_acc_balance" value="<?php safer_echo($dest_acc_result["balance"]); ?>" />
+            <input type="submit" id="submit" name="transfer" value="Transfer" />
+        </form>
+    <?php endif; ?>
+</div>
 
 <?php
 if (isset($_POST["transfer"])) {
@@ -181,3 +180,6 @@ if (isset($_POST["transfer"])) {
 ?>
 
 <?php require(__DIR__ . "/partials/flash.php"); ?>
+
+<script src="jquery/jquery.js"></script>
+<script src="static/js/form_animation.js"></script>
