@@ -72,7 +72,7 @@ if (isset($_POST["search"])) {
         $total_pages = ceil($numOfRecords / $perPage);
         $offset = ($page - 1) * $perPage;
 
-        $stmt = $db->prepare("SELECT balance_change, transaction_type, memo, transaction_time FROM Transactions WHERE account_source = :acc_src AND account_source != 1 LIMIT :offset, :per_page");
+        $stmt = $db->prepare("SELECT balance_change, transaction_type, memo, DATE(transaction_time) as transaction_time FROM Transactions WHERE account_source = :acc_src AND account_source != 1 ORDER BY transaction_time DESC LIMIT :offset, :per_page");
         $r1 = $stmt->execute([":acc_src" => $acc_id, ":offset" => $offset, ":per_page" => $perPage]);
         $result1 = $stmt->fetchAll(PDO::FETCH_ASSOC);
         //echo var_dump($result1);
@@ -83,62 +83,60 @@ if (isset($_POST["search"])) {
 ?>
 
 <?php if (isset($result) && isset($result1)) : ?>
-    <div class="transaction-information">
-        <div class="user-info">
-            <h2>Name: <?php safer_echo($searched_user_name); ?></h2>
-            <h2>Email: <?php safer_echo($searched_user_email); ?></h2>
+    <div id="search-results">
+        <div id="user-info-container">
+            <h1>User Information</h1>
+            <div id="user-info">
+                <h2><span class="info-label">Name:</span> <span class="info-items"><?php safer_echo($searched_user_name); ?></span></h2>
+                <h2><span class="info-label">Email:</span> <span class="info-items"><?php safer_echo($searched_user_email); ?></span></h2>
+            </div>
+            <div id="user-account-info">
+                <h3><span class="info-label">Account Number:</span> <span class="info-items"><?php safer_echo($acc_num); ?></span></h3>
+                <h3><span class="info-label">Account Type:</span> <span class="info-items"><?php safer_echo($acc_type); ?></span></h3>
+                <h3><span class="info-label">Restrictions:</span> <span class="info-items"><?php safer_echo($freeze_restriction . "-" . $close_restriction) ?></span></h3>
+                <?php if ($acc_type != "Checking") : ?>
+                    <h3><span class="info-label">APY:</span> <span class="info-items"><?php safer_echo($acc_apy); ?> %</span></h3>
+                <?php endif; ?>
+            </div>
         </div>
-        <h4>Account Number: <?php safer_echo($acc_num); ?></h4>
-        <h4>Account Type: <?php safer_echo($acc_type); ?></h4>
-        <h4>Restrictions: <?php safer_echo($freeze_restriction . "-" . $close_restriction) ?></h4>
-        <?php if ($acc_type != "Checking") : ?>
-            <h4>APY: <?php safer_echo($acc_apy); ?> %</h4>
-        <?php endif; ?>
-        <table>
-            <thead>
-                <tr>
-                    <th>Balance Change</th>
-                    <th>Transaction Type</th>
-                    <th>Memo</th>
-                    <th>Transaction Time</th>
-                </tr>
-            </thead>
-            <?php if (isset($result1)) : ?>
-                <?php foreach ($result1 as $r) : ?>
-                    <tbody>
-                        <tr>
-                            <td class="data-row"><?php safer_echo($r["balance_change"]); ?></td>
-                            <td class="data-row"><?php safer_echo($r["transaction_type"]); ?></td>
-                            <td class="data-row"><?php safer_echo($r["memo"]); ?></td>
-                            <td class="data-row"><?php safer_echo($r["transaction_time"]); ?></td>
-                        </tr>
-                    </tbody>
-                <?php endforeach; ?>
-                <tfoot>
+        <div class="transaction-table">
+            <table>
+                <h2>Recent Transactions</h2>
+                <thead>
                     <tr>
-                        <td colspan="4" id="total"><?php safer_echo("$ " . $acc_balance) ?></td>
+                        <th>Balance Change</th>
+                        <th>Transaction Type</th>
+                        <th>Memo</th>
+                        <th>Transaction Time</th>
                     </tr>
-                </tfoot>
-            <?php endif; ?>
-        </table>
-        <div class="pagination-div">
-            <nav class="page-navigation">
-                <ul class="pagination">
-                    <li>
-                        <a href="<?php echo $_SERVER['PHP_SELF'] . "?id=" . $acc_id . "&page=" . ($page - 1) ?>" id="previous">Previous</a>
-                    </li>
-                    <li>
-                        <a href="<?php echo $_SERVER['PHP_SELF'] . "?id=" . $acc_id . "&page=" . ($page + 1) ?>" id="next">Next</a>
-                    </li>
-                </ul>
-            </nav>
+                </thead>
+                <?php if (isset($result1)) : ?>
+                    <?php foreach ($result1 as $r) : ?>
+                        <tbody>
+                            <tr>
+                                <td class="data-row"><?php safer_echo($r["balance_change"]); ?></td>
+                                <td class="data-row"><?php safer_echo($r["transaction_type"]); ?></td>
+                                <td class="data-row"><?php safer_echo($r["memo"]); ?></td>
+                                <td class="data-row"><?php safer_echo($r["transaction_time"]); ?></td>
+                            </tr>
+                        </tbody>
+                    <?php endforeach; ?>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4" id="total"><?php safer_echo("$ " . $acc_balance) ?></td>
+                        </tr>
+                    </tfoot>
+                <?php endif; ?>
+            </table>
         </div>
-        <form id="buttons" method="POST">
-            <input type="submit" id="freeze" name="freeze" value="Freeze Account" />
-            <input type="hidden" name="acc_id" value="<?php echo $acc_id; ?>" />
-            <input type="submit" id="disable" name="disable" value="Disable User" />
-            <input type="hidden" name="user_id" value="<?php echo $searched_user_id; ?>" />
-        </form>
+        <div class="button-container">
+            <form id="buttons" method="POST">
+                <input type="submit" id="freeze" name="freeze" value="Freeze Account" />
+                <input type="hidden" name="acc_id" value="<?php echo $acc_id; ?>" />
+                <input type="submit" id="disable" name="disable" value="Disable User" />
+                <input type="hidden" name="user_id" value="<?php echo $searched_user_id; ?>" />
+            </form>
+        </div>
     </div>
 <?php endif; ?>
 
@@ -150,7 +148,6 @@ if (isset($_POST["freeze"])) {
     $r = $stmt->execute([":acc_id" => $freeze_acc_id]);
     if ($r) {
         flash("Account Freeze Successful");
-        header("Location: test_admin_search.php");
     } else {
         flash("Account Freeze Error");
     }
@@ -174,14 +171,7 @@ if (isset($_POST["disable"])) {
 
 <script>
     $(document).ready(function() {
-        var currentPage = <?php echo $page; ?>;
-        var maxPage = <?php echo $total_pages; ?>;
-        if (currentPage == 1) {
-            $("#previous").hide();
-        }
-        if (currentPage >= maxPage) {
-            $("#next").hide();
-        }
+
         var $freezeButton = $("#buttons");
         var isFrozen = <?php echo $acc_freeze_status; ?>;
         //console.log(isFrozen);
