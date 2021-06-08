@@ -86,7 +86,8 @@ div#welcome-text {
     bottom: 700px;
     left: 20px;    
     color: #231651;
-    font-size: 1.5em;
+    text-align: center;
+    font-size: 1.2em;
     background-color: #D57A66;
     font-family: 'Courier New', Courier, monospace;
 }
@@ -109,7 +110,7 @@ h2#introduction-header {
 }
 
 h2#login-header {
-    width: 30%;
+    width: 35%;
     float: right;
     background-color: #D57A66;
     border-radius: 5px;
@@ -290,7 +291,7 @@ form#profile-form > input[type="submit"] {
     margin: 15px 0px;
 }
 
-form#create-account-form , form#search-account-form, form#deposit-form, form#withdraw-form, form#transfer-form, form#ext-transfer-form, form#loan-form, form#close-account-form {
+form#create-account-form , form#search-account-form, form#deposit-form, form#withdraw-form, form#transfer-form, form#ext-transfer-form, form#loan-form, form#close-account-form, form#admin-search-form {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -302,7 +303,7 @@ form#create-account-form , form#search-account-form, form#deposit-form, form#wit
     border-radius: 10px;
 }
 
-form#create-account-form > *, div.hide > *, form#search-account-form > *, form#deposit-form > *, form#withdraw-form > *, form#transfer-form > *, form#ext-transfer-form > *, form#loan-form > *, form#close-account-form > * {
+form#create-account-form > *, div.hide > *, form#search-account-form > *, form#deposit-form > *, form#withdraw-form > *, form#transfer-form > *, form#ext-transfer-form > *, form#loan-form > *, form#close-account-form > *, form#admin-search-form > * {
     border-radius: 10px;
     padding: 10px;
 }
@@ -330,11 +331,11 @@ form#create-account-form > input:read-only, form#searched-ext-transfer-form > *:
     font-style: oblique;
 }
 
-form#create-account-form > input[type=submit], form#search-account-form > input[type=submit], form#deposit-form > input[type=submit], form#withdraw-form > input[type=submit], form#transfer-form > input[type=submit], form#ext-transfer-form > input[type=submit], form#loan-form > input[type=submit], form#close-account-form > input[type=submit] {
+form#create-account-form > input[type=submit], form#search-account-form > input[type=submit], form#deposit-form > input[type=submit], form#withdraw-form > input[type=submit], form#transfer-form > input[type=submit], form#ext-transfer-form > input[type=submit], form#loan-form > input[type=submit], form#close-account-form > input[type=submit], form#admin-search-form > input[type=submit] {
     margin: 15px 0px;
 }
 
-form#create-account-form > input[type=submit]:hover, form#search-account-form > input[type=submit]:hover, form#deposit-form > input[type=submit]:hover, form#withdraw-form > input[type=submit]:hover, form#profile-form > input[type="submit"]:hover, form#transfer-form > input[type=submit]:hover, form#ext-transfer-form > input[type=submit]:hover, form#loan-form > input[type=submit]:hover, form#close-account-form > input[type=submit]:hover {
+form#create-account-form > input[type=submit]:hover, form#search-account-form > input[type=submit]:hover, form#deposit-form > input[type=submit]:hover, form#withdraw-form > input[type=submit]:hover, form#profile-form > input[type="submit"]:hover, form#transfer-form > input[type=submit]:hover, form#ext-transfer-form > input[type=submit]:hover, form#loan-form > input[type=submit]:hover, form#close-account-form > input[type=submit]:hover, form#admin-search-form > input[type=submit]:hover {
     background-color: #D57A66;
     cursor: pointer;
 }
@@ -416,30 +417,36 @@ div#account-information {
     border-bottom: black 2px solid;
 }
 
-div#transaction-table {
+div.transaction-table {
     background-color: #d57a66a9;
     padding: 20px;
     margin: 15px auto;
 }
 
-div#transaction-table > table {
+div.transaction-table h2 {
+    width: fit-content;
+    margin: 15px auto;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+div.transaction-table > table {
     width: 100%;
 }
 
-div#transaction-table > table > thead > tr > th{
+div.transaction-table > table > thead > tr > th{
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     text-align: center;
     border-bottom: black 3px double;
     border-right: black 1px solid;
 }
 
-div#transaction-table > table tbody > tr > td{
+div.transaction-table > table tbody > tr > td{
     font-family: 'Kanit', sans-serif;
     text-align: center;
     border-right: black 1px solid;
 }
 
-div#transaction-table > table > thead > tr > th:last-of-type, div#transaction-table > table tbody > tr > td:last-of-type{
+div.transaction-table > table > thead > tr > th:last-of-type, div#transaction-table > table tbody > tr > td:last-of-type{
     border-right: unset;
 }
 
@@ -499,6 +506,88 @@ form#deposit-searched-form > input[type=submit], form#withdraw-searched-form >in
 }
 
 form#deposit-searched-form > input[type="submit"]:hover, form#withdraw-searched-form >input[type=submit]:hover, form#searched-ext-transfer-form > input[type=submit]:hover, form#loan-confirmation-form > input[type=submit]:hover {
+    background-color: #231651;
+    color: #bec0bd;
+    cursor: pointer;
+}
+
+div#search-results {
+    margin: auto;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+div#search-results > div#user-info-container {
+    width: inherit;
+    margin: auto;
+}
+
+div#search-results h1 {
+    width: fit-content;
+    margin: auto;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+div#user-account-info {
+    margin-bottom: 5rem;
+}
+
+div#user-info , div#user-account-info {
+    display: flex;
+    align-self: center;
+    flex-direction: column;
+    align-content: center;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 50%;
+    border-bottom: black 2px solid;
+    margin: inherit;
+}
+
+div#user-info h2 , div#user-account-info h3 {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    flex-wrap: wrap;
+    flex-direction: row;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+span.info-label {
+    font-weight: bold;
+}
+
+span.info-items {
+    font-family: unset;
+    font-family: 'EB Garamond', serif;
+}
+
+div.button-container {
+    width: 50%;
+    margin: auto;
+}
+
+div.button-container form#buttons {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: space-around;
+    justify-content: space-evenly;
+    align-items: flex-end;
+    margin: 10px auto;
+}
+
+div.button-container form#buttons > * {
+    padding: 20px;
+    font-size: larger;
+    border-radius: 15px;
+}
+
+div.button-container form#buttons input[type=submit]:hover {
     background-color: #231651;
     color: #bec0bd;
     cursor: pointer;

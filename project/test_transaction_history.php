@@ -141,7 +141,7 @@ if (isset($_GET["id"]) && $_GET["id"] != 1) {
                 <h4>APY: <?php safer_echo($result[0]["apy"]); ?> %</h4>
             <?php endif; ?>
         </div>
-        <div id="transaction-table">
+        <div class="transaction-table">
             <table>
                 <thead>
                     <tr>

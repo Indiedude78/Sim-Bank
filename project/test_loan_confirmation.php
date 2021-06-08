@@ -123,7 +123,7 @@ if (isset($_POST["confirm"])) {
                 //echo var_dump($e);
                 if ($r2) {
                     //echo "Ran 4";
-                    $memo = "----";
+                    $memo = "LOAN-DEPOSIT";
                     $transaction_type = "loan-deposit";
                     $query = "INSERT INTO Transactions(account_source, account_destination, balance_change, transaction_type, memo, expected_total)";
                     $query .= " VALUES(:acc_src, :acc_dest, :balance_change, :t_type, :memo, :total)";
