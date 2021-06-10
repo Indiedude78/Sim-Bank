@@ -7,6 +7,7 @@ html {
     background-color: #231651;
     position: sticky;
     top: 0;
+    z-index: 10;
 }
 
 ul.nav {
@@ -171,6 +172,7 @@ div.side-bar {
     position: fixed;
     top: 10;
     height: 100%;
+    z-index: 15;
 }
 
 div.dashboard-container {
@@ -593,7 +595,7 @@ div.button-container {
     margin: auto;
 }
 
-div.button-container form#buttons {
+div.button-container form.buttons {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -604,13 +606,13 @@ div.button-container form#buttons {
     margin: 10px auto;
 }
 
-div.button-container form#buttons > * {
+div.button-container form.buttons > * {
     padding: 20px;
     font-size: larger;
     border-radius: 15px;
 }
 
-div.button-container form#buttons input[type=submit]:hover {
+div.button-container form.buttons input[type=submit]:hover {
     background-color: #231651;
     color: #bec0bd;
     cursor: pointer;
