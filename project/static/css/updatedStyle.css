@@ -511,7 +511,7 @@ form#deposit-searched-form > input[type="submit"]:hover, form#withdraw-searched-
     cursor: pointer;
 }
 
-div#search-results {
+div.search-results {
     margin: auto;
     width: 80%;
     display: flex;
@@ -519,45 +519,68 @@ div#search-results {
     flex-wrap: wrap;
 }
 
-div#search-results > div#user-info-container {
+div.search-results > div.user-info-container {
     width: inherit;
     margin: auto;
 }
 
-div#search-results h1 {
+div.search-results h1 {
     width: fit-content;
     margin: auto;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
-div#user-account-info {
+div.user-account-info {
     margin-bottom: 5rem;
 }
 
-div#user-info , div#user-account-info {
+div.user-account-info > a {
+    width: 100%;
+    padding: 15px;
+    margin: 20px;
+    text-decoration: none;
+    font-style: normal;
+    background-color: #D57A66;
+    color: #231651;
+    border-bottom: 1px black solid;
+    border-radius: 0px 25px 25px 0px;
+    z-index: 1;
+}
+
+div.user-account-info > a:hover {
+    transform: scale(1.1, 1.1);
+    background-color: #231651;
+    color: #bec0bd;
+    z-index: 3;
+    box-shadow: 0px 8px 69px 7px rgba(0,0,0,0.84);;
+}
+
+div.user-info , div.user-account-info {
     display: flex;
     align-self: center;
     flex-direction: column;
     align-content: center;
     justify-content: space-between;
     align-items: flex-start;
-    width: 50%;
+    width: 70%;
     border-bottom: black 2px solid;
     margin: inherit;
 }
 
-div#user-info h2 , div#user-account-info h3 {
+div.user-info h2 , div.user-account-info h3 {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: stretch;
     flex-wrap: wrap;
     flex-direction: row;
+
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 span.info-label {
     font-weight: bold;
+
 }
 
 span.info-items {

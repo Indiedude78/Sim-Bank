@@ -83,14 +83,14 @@ if (isset($_POST["search"])) {
 ?>
 
 <?php if (isset($result) && isset($result1)) : ?>
-    <div id="search-results">
-        <div id="user-info-container">
+    <div class="search-results">
+        <div class="user-info-container">
             <h1>User Information</h1>
-            <div id="user-info">
+            <div class="user-info">
                 <h2><span class="info-label">Name:</span> <span class="info-items"><?php safer_echo($searched_user_name); ?></span></h2>
                 <h2><span class="info-label">Email:</span> <span class="info-items"><?php safer_echo($searched_user_email); ?></span></h2>
             </div>
-            <div id="user-account-info">
+            <div class="user-account-info">
                 <h3><span class="info-label">Account Number:</span> <span class="info-items"><?php safer_echo($acc_num); ?></span></h3>
                 <h3><span class="info-label">Account Type:</span> <span class="info-items"><?php safer_echo($acc_type); ?></span></h3>
                 <h3><span class="info-label">Restrictions:</span> <span class="info-items"><?php safer_echo($freeze_restriction . "-" . $close_restriction) ?></span></h3>
